@@ -1,2 +1,10 @@
-public class Staff {
+public class Staff extends User{
+
+   public void create(){
+
+   }
+
+    public void update(){
+
+    }
 }
