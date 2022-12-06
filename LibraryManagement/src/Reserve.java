@@ -6,7 +6,7 @@ public class Reserve {
     private String dateBorrowed;
     private String dateDue;
 
-    public Reserve (){
+    public Reserve (int productID, String productName, String borrower, String dateBorrowed, String dateDue){
 
     }
 
