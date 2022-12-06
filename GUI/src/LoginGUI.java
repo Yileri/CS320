@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class LoginPanel implements ActionListener {
+public class LoginGUI implements ActionListener {
     private static JTextField usernameField;
     private static JPasswordField passwordField;
     public static void main(String[] args) {
@@ -63,7 +63,7 @@ public class LoginPanel implements ActionListener {
         loginButton.setBounds(150, 147, 200, 27);
         loginButton.setForeground(Color.BLACK);
         loginButton.setBackground(Color.CYAN);
-        loginButton.addActionListener(new LoginPanel());
+        loginButton.addActionListener(new LoginGUI());
         panel.add(loginButton);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
