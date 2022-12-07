@@ -25,17 +25,28 @@ public class LibraryListGUI implements ActionListener {
         libFrame.add(BorderLayout.CENTER, scrollPane);
         libFrame.setVisible(true);
 
-        JMenu reserve, filter, request;
-        JMenuBar mb = new JMenuBar();
+        JMenu reserve, filter, request, returnItem, addItem;
+        JMenuBar mbUser = new JMenuBar();
+        JMenuBar mbAdmin = new JMenuBar();
         reserve = new JMenu("Reserve");
         filter = new JMenu("Filter");
         request = new JMenu("Request");
+        returnItem = new JMenu("Return Item");
+        addItem = new JMenu("Add Item");
 
-        mb.add(reserve);
-        mb.add(filter);
-        mb.add(request);
-        libFrame.add(mb);
-        libFrame.setJMenuBar(mb);
+
+        mbUser.add(reserve);
+        mbUser.add(filter);
+        mbUser.add(request);
+
+        mbAdmin.add(reserve);
+        mbAdmin.add(filter);
+        mbAdmin.add(request);
+        mbAdmin.add(returnItem);
+        mbAdmin.add(addItem);
+        //libFrame.add(mbUser);
+        libFrame.add(mbAdmin);
+        libFrame.setJMenuBar(mbAdmin);
         libFrame.setLayout(null);
         libFrame.setVisible(true);
     }
