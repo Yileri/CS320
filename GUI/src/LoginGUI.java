@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class LoginGUI implements ActionListener {
+public class LoginGUI {
     private static JTextField usernameField;
     private static JPasswordField passwordField;
     public static void main(String[] args) {
@@ -58,28 +58,43 @@ public class LoginGUI implements ActionListener {
         passwordField.setBounds(150, 113, 200, 30);
         panel.add(passwordField);
 
-        // Button
-        JButton loginButton = new JButton("Login");
-        loginButton.setBounds(150, 147, 200, 27);
+        // Sign In Button
+        JButton loginButton = new JButton("Sıgn In");
+        loginButton.setBounds(150, 147, 110, 27);
         loginButton.setForeground(Color.BLACK);
         loginButton.setBackground(Color.CYAN);
-        loginButton.addActionListener(new LoginGUI());
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = passwordField.getText();
+
+                if (username.equals("admin") && password.equals("123456"))
+                    JOptionPane.showMessageDialog(null, "Login Successful");
+                    //Buradan ana ekrana
+                else
+                    JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
+                //Kendisi tekrar giriş ekranına dönüyor, daha doğrusu giriş ekranı kapanmıyor.
+            }
+        });
+
+        // Exit Button
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(250, 147, 99, 27);
+        exitButton.setForeground(Color.BLACK);
+        exitButton.setBackground(Color.CYAN);
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         panel.add(loginButton);
+        panel.add(exitButton);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-
-        if (username.equals("admin") && password.equals("123456"))
-            JOptionPane.showMessageDialog(null, "Login Successful");
-            //Buradan ana ekrana
-        else
-            JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
-            //Kendisi tekrar giriş ekranına dönüyor, daha doğrusu giriş ekranı kapanmıyor.
-    }
 }
