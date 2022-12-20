@@ -113,4 +113,25 @@ public class Library {
     }
 
 
+    public void findMovie(int productID, Connection conn) {
+        try {
+            String sql = "SELECT * FROM Movies WHERE productID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, productID);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int year = rs.getInt("year");
+                String productName = rs.getString("productName");
+                String genre = rs.getString("genre");
+                String directorName = rs.getString("directorName");
+
+                // Do something with the retrieved movie information
+            } else {
+                System.out.println("Movie not found");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
