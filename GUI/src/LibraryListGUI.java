@@ -9,9 +9,11 @@ public class LibraryListGUI implements ActionListener {
         libFrame.setLocation(new Point(400, 40));
 
         JPanel searchPanel = new JPanel();
+        JButton filterButton = new JButton("Filter");
         JLabel searchLabel = new JLabel("Search Items:");
         JTextField searchBarTextField = new JTextField(30);
         JButton searchButton = new JButton("Search");
+        searchPanel.add(filterButton);
         searchPanel.add(searchLabel);
         searchPanel.add(searchBarTextField);
         searchPanel.add(searchButton);
@@ -36,15 +38,15 @@ public class LibraryListGUI implements ActionListener {
 
 
         mbUser.add(reserve);
-        mbUser.add(filter);
+        //mbUser.add(filter);
         mbUser.add(request);
 
         mbAdmin.add(reserve);
-        mbAdmin.add(filter);
+        //mbAdmin.add(filter);
         mbAdmin.add(request);
         mbAdmin.add(returnItem);
         mbAdmin.add(addItem);
-        //libFrame.add(mbUser);
+
         libFrame.add(mbAdmin);
         libFrame.setJMenuBar(mbAdmin);
         libFrame.setLayout(null);
