@@ -2,7 +2,7 @@ public class Book extends Product{
 
     private String authorName;
 
-    public Book (int productID, String productName, int year, String genre, String authorName){
+    public Book (int productID, String productName, int year, String genre, String authorName, boolean isReserved){
         this.authorName = authorName;
     }
 
