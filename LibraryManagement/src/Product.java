@@ -5,6 +5,8 @@ public class Product {
     private int year;
     private String genre;
 
+    private boolean isReserved;
+
     public int getProductID(){
         return productID;
     }
