@@ -7,9 +7,9 @@ import static org.junit.Assert.*;
 public class TestDB {
 //        Connection conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306", "1JMibyaVTO", "6hX7WHl7uj");
 //    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://remotemysql.com:3306";
-    private static final String USERNAME = "1JMibyaVTO";
-    private static final String PASSWORD = "6hX7WHl7uj";
+    private static final String DB_URL = "jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306";
+    private static final String USERNAME = "admin";
+    private static final String PASSWORD = "admin123";
 
     @Test
     public void testJdbcConnection() {
