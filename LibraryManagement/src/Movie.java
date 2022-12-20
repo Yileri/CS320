@@ -2,7 +2,7 @@ public class Movie extends Product{
 
     private String directorName;
 
-    public Movie(int productID, String productName, int year, String genre, String directorName) {
+    public Movie(int productID, String productName, int year, String genre, String directorName,boolean isReserved) {
         this.directorName = directorName;
 
     }

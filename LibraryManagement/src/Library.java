@@ -46,6 +46,42 @@ public class Library {
             }
         }
 
+    public void addMovie(int productID, String productName, int year, String genre, String directorName, boolean isReserved) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            // Establish a connection to the database
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASS);
+
+            // Create a prepared statement to insert the new book into the Books table
+            String sql = "INSERT INTO Books (productID, productName, year, genre, directoName,isReserved) VALUES (?, ?, ?, ?, ?,?)";
+            stmt = conn.prepareStatement(sql);
+
+            // Set the values for the prepared statement
+            stmt.setInt(1, productID);
+            stmt.setString(2, productName);
+            stmt.setInt(3, year);
+            stmt.setString(4, genre);
+            stmt.setString(5, directorName);
+            stmt.setBoolean(6,isReserved);
+
+            // Execute the prepared statement
+            stmt.executeUpdate();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
+
 
 
 
