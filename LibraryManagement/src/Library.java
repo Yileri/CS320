@@ -1,14 +1,9 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Library {
     private static final String DB_URL ="jdbc:mysql://remotemysql.com:3306" ;
     private static final String PASS ="6hX7WHl7uj" ;
     private static final String USERNAME = "1JMibyaVTO";
-
-
 
 
         public void addBook(int productID, String productName, int year, String genre, String authorName, boolean isReserved) {
@@ -84,12 +79,38 @@ public class Library {
 
 
 
+        public void removeBook(int productID, String productName, int year, String genre, String authorName, boolean isReserved) {
 
-    public void remove(){
+        }
+
+    public void removeMovie(int productID, String productName, int year, String genre, String directorName, boolean isReserved) {
 
     }
 
-    public void find(){
 
+
+
+    public void findBook(int productID, Connection conn) {
+        try {
+            String sql = "SELECT * FROM Books WHERE productID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, productID);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int year = rs.getInt("year");
+                String productName = rs.getString("productName");
+                String genre = rs.getString("genre");
+                String authorName = rs.getString("authorName");
+
+                // Do something with the retrieved book information
+            } else {
+                System.out.println("Book not found");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
+
 }
