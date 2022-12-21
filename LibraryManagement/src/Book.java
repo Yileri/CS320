@@ -10,6 +10,13 @@ public class Book extends Product{
 
     }
 
+    public Book(int productID, String productName, int year, String genre, String Name, boolean isReserved){
+        this.authorName=Name;
+
+    }
+
+
+
     public String getAuthorName() {
         return authorName;
     }
