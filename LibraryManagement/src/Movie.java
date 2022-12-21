@@ -6,6 +6,9 @@ public class Movie extends Product{
         this.directorName = directorName;
 
     }
+    public Movie(int productID, String productName, String borrower, String dateBorrowed, String dateDue, boolean isReserved){
+
+    }
 
     public String getDirectorName() {
         return directorName;
