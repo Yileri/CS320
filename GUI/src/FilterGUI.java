@@ -1,15 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class FilterGUI extends JFrame {
+public class FilterGUI extends JDialog {
 
-
-    public static void main(String args[]) {
-        JFrame filterFrame = new JFrame("Filter");
-        filterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        filterFrame.setSize(250, 400);
-        filterFrame.setLocation(600, 120);
-        filterFrame.setLayout(new FlowLayout());
+    FilterGUI() {
+        this.setTitle("Filter");
+        this.setAlwaysOnTop(true);
+        this.setModal(true);
+        this.setSize(250, 400);
+        this.setLayout(new FlowLayout());
+        this.setLocationRelativeTo(null);
 
         JLabel typeLabel = new JLabel("Item Type:");
         JLabel genreLabel = new JLabel("Genre:");
@@ -47,10 +47,10 @@ public class FilterGUI extends JFrame {
         yearPanel.add(yearBox);
 
         // adding panels to main frame
-        filterFrame.add(typePanel);
-        filterFrame.add(genrePanel);
-        filterFrame.add(yearPanel);
+        this.add(typePanel);
+        this.add(genrePanel);
+        this.add(yearPanel);
 
-        filterFrame.setVisible(true);
+        this.setVisible(true);
     }
 }

@@ -18,6 +18,13 @@ public class LibraryListGUI implements ActionListener {
         searchPanel.add(searchBarTextField);
         searchPanel.add(searchButton);
 
+        filterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FilterGUI filterFrame = new FilterGUI();
+            }
+        });
+
         libFrame.getContentPane().add(BorderLayout.NORTH, searchPanel);
 
         JPanel itemPanel = new JPanel();
