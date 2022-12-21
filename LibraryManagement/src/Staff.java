@@ -37,7 +37,25 @@ public class Staff extends User{
         }
     }
 
-    public void update(){
+    public void update(int userID, String userName, String userType) {
+        // Connect to the database
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306", USERNAME, PASS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        // Update the user in the users table
+        String sql = "UPDATE users SET user_name = ?, user_type = ? WHERE user_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userName);
+            pstmt.setString(2, userType);
+            pstmt.setInt(3, userID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 }
