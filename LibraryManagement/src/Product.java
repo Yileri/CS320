@@ -7,6 +7,10 @@ public class Product {
 
     private boolean isReserved;
 
+    private String dateBorrowed;
+
+    private  String dateDue;
+
     public int getProductID(){
         return productID;
     }
@@ -36,6 +40,22 @@ public class Product {
     public void setGenre(){
 
     }
+    public String getDateBorrowed(){
+        return genre;
+    }
+
+    public void setDateBorrowed(){
+
+    }
+
+    public String getDateDue(){
+        return genre;
+    }
+
+    public void setDateDue(){
+
+    }
+
 
 
 }
