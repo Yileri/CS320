@@ -35,6 +35,7 @@ public class LibraryListGUI implements ActionListener {
         libFrame.setVisible(true);
 
         JMenu reserve, filter, request, returnItem, addItem;
+        JMenuItem requestBook, requestMovie;
         JMenuBar mbUser = new JMenuBar();
         JMenuBar mbAdmin = new JMenuBar();
         reserve = new JMenu("Reserve");
@@ -42,6 +43,23 @@ public class LibraryListGUI implements ActionListener {
         request = new JMenu("Request");
         returnItem = new JMenu("Return Item");
         addItem = new JMenu("Add Item");
+        requestBook = new JMenuItem("Request Book");
+        requestMovie = new JMenuItem("Request Movie");
+        request.add(requestBook);
+        request.add(requestMovie);
+        requestBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RequestBookGUI requestBook = new RequestBookGUI();
+            }
+        });
+
+        requestMovie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RequestMovieGUI requestMovie = new RequestMovieGUI();
+            }
+        });
 
 
         mbUser.add(reserve);
