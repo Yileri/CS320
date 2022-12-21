@@ -26,7 +26,7 @@ public class Staff extends User{
         }
 
         // Insert the new user into the users table
-        String sql = "INSERT INTO users (user_id, user_name, user_type) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Users (user_id, user_name, user_type) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, userID);
             pstmt.setString(2, userName);
@@ -47,7 +47,7 @@ public class Staff extends User{
         }
 
         // Update the user in the users table
-        String sql = "UPDATE users SET user_name = ?, user_type = ? WHERE user_id = ?";
+        String sql = "UPDATE Users SET user_name = ?, user_type = ? WHERE user_id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, userName);
             pstmt.setString(2, userType);

@@ -8,39 +8,44 @@ public class Reserve {
     private static final String USERNAME = "1JMibyaVTO";
 
 
+    private int year;
     private int productID;
     private String productName;
     private String borrower;
     private String dateBorrowed;
     private String dateDue;
     private  boolean isReserved;
+    private String Name; //director name or author name
 
 
 
-    public void create(int productID, String productName, int year, String genre, String authorName, String directorName) {
+    public void create(int productID, String productName, int year, String genre, String Name,boolean isReserved) {
         // Connect to the database
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASS);
 
             // Insert a new book into the Books table
-            String sql = "INSERT INTO Books (productID, productName, year, genre, authorName) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Books (productID, productName, year, genre, Name ,isReserved) VALUES (?, ?, ?, ?, ?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, productID);
             pstmt.setString(2, productName);
             pstmt.setInt(3, year);
             pstmt.setString(4, genre);
-            pstmt.setString(5, authorName);
+            pstmt.setString(5, Name);
+            pstmt.setBoolean(6,isReserved);
             pstmt.executeUpdate();
 
             // Insert a new movie into the Movies table
-            sql = "INSERT INTO Movies (productID, productName, year, genre, directorName) VALUES (?, ?, ?, ?, ?)";
+            sql = "INSERT INTO Movies (productID, productName, year, genre, Name,isReserved) VALUES (?, ?, ?, ?, ?,?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, productID);
             pstmt.setString(2, productName);
             pstmt.setInt(3, year);
             pstmt.setString(4, genre);
-            pstmt.setString(5, directorName);
+            pstmt.setString(5, Name);
+            pstmt.setBoolean(6,isReserved);
+
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -63,25 +68,25 @@ public class Reserve {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASS);
 
             // Update the book in the Books table
-            String sql = "UPDATE Books SET productName = ?, year = ?, genre = ?, authorName = ?, isReserved = ? WHERE productID = ?";
+            String sql = "UPDATE Books SET isReserved = ?, productName = ?, year = ?, genre = ?, Name = ? WHERE productID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, productName);
-            pstmt.setInt(2, year);
-            pstmt.setString(3, genre);
-            pstmt.setString(4, Name);
-            pstmt.setBoolean(5, isReserved);
-            pstmt.setInt(6, productID);
+            pstmt.setInt(1, productID);
+            pstmt.setString(2, productName);
+            pstmt.setInt(3, year);
+            pstmt.setString(4, genre);
+            pstmt.setString(5, Name);
+            pstmt.setBoolean(6,isReserved);
             pstmt.executeUpdate();
 
             // Update the movie in the Movies table
-            sql = "UPDATE Movies SET productName = ?, year = ?, genre = ?, directorName = ?, isReserved = ? WHERE productID = ?";
+            sql = "UPDATE Movies SET isReserved = ?, productName = ?, year = ?, genre = ?, Name = ?  WHERE productID = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, productName);
-            pstmt.setInt(2, year);
-            pstmt.setString(3, genre);
-            pstmt.setString(4, Name);
-            pstmt.setBoolean(5, isReserved);
-            pstmt.setInt(6, productID);
+            pstmt.setInt(1, productID);
+            pstmt.setString(2, productName);
+            pstmt.setInt(3, year);
+            pstmt.setString(4, genre);
+            pstmt.setString(5, Name);
+            pstmt.setBoolean(6,isReserved);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
