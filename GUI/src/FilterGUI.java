@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class FilterGUI extends JFrame {
 
+
     public static void main(String args[]) {
         JFrame filterFrame = new JFrame("Filter");
         filterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -16,15 +17,26 @@ public class FilterGUI extends JFrame {
         JLabel authorLabel = new JLabel("Author:");
         JLabel directorLabel = new JLabel("Director:");
 
-        String types[] = {"Book", "Movie"};
-
+        String types[] = {"Select", "Book", "Movie"};
         JComboBox typeBox = new JComboBox(types);
+
+        String years[] = new String[124];
+        years[0] = "Select";
+        for (int i=1900; i<2023; i++) {
+            years[i-1899] =  "" + i;
+        }
+        JComboBox yearBox = new JComboBox(years);
 
         JPanel typePanel = new JPanel();
         typePanel.add(typeLabel);
         typePanel.add(typeBox);
 
+        JPanel yearPanel = new JPanel();
+        yearPanel.add(yearLabel);
+        yearPanel.add(yearBox);
+
         filterFrame.add(typePanel);
+        filterFrame.add(yearPanel);
 
         //filterFrame.add(typeLabel);
         //filterFrame.add(genreLabel);
