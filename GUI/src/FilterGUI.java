@@ -1,29 +1,38 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class FilterGUI {
+public class FilterGUI extends JFrame {
 
     public static void main(String args[]) {
         JFrame filterFrame = new JFrame("Filter");
         filterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         filterFrame.setSize(400, 400);
         filterFrame.setLocation(600, 120);
+        filterFrame.setLayout(new FlowLayout());
 
-        JPanel filterPanel = new JPanel();
         JLabel typeLabel = new JLabel("Item Type:");
         JLabel genreLabel = new JLabel("Genre:");
         JLabel yearLabel = new JLabel("Year:");
         JLabel authorLabel = new JLabel("Author:");
         JLabel directorLabel = new JLabel("Director:");
 
-        filterPanel.add(BorderLayout.NORTH, typeLabel);
-        filterPanel.add(genreLabel);
-        filterPanel.add(yearLabel);
-        filterPanel.add(authorLabel);
-        filterPanel.add(directorLabel);
+        String types[] = {"Book", "Movie"};
 
-        filterFrame.add(filterPanel);
+        JComboBox typeBox = new JComboBox(types);
 
+        JPanel typePanel = new JPanel();
+        typePanel.add(typeLabel);
+        typePanel.add(typeBox);
+
+        filterFrame.add(typePanel);
+
+        //filterFrame.add(typeLabel);
+        //filterFrame.add(genreLabel);
+        //filterFrame.add(yearLabel);
+        //filterFrame.add(authorLabel);
+        //filterFrame.add(directorLabel);
+
+        //filterFrame.getContentPane().add(filterPanel);
         filterFrame.setVisible(true);
 
 
