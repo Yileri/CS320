@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Staff extends User{
 
-    private static final String DB_URL ="jdbc:mysql://remotemysql.com:3306" ;
-    private static final String PASS ="6hX7WHl7uj" ;
-    private static final String USERNAME = "1JMibyaVTO";
+    private static final String DB_URL ="jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306" ;
+    private static final String PASS ="admin" ;
+    private static final String USERNAME = "admin123";
 
 
 
@@ -20,7 +20,7 @@ public class Staff extends User{
         // Connect to the database
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306", USERNAME, PASS);
+            conn = DriverManager.getConnection("jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306", USERNAME, PASS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class Staff extends User{
         // Connect to the database
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306", USERNAME, PASS);
+            conn = DriverManager.getConnection("jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306", USERNAME, PASS);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,9 +1,9 @@
 import java.sql.*;
 
 public class Library {
-    private static final String DB_URL = "jdbc:mysql://remotemysql.com:3306";
-    private static final String PASS = "6hX7WHl7uj";
-    private static final String USERNAME = "1JMibyaVTO";
+    private static final String DB_URL = "jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306";
+    private static final String PASS = "admin";
+    private static final String USERNAME = "admin123";
 
 
     public void addBook(int productID, String productName, int year, String genre, String authorName, boolean isReserved) {
