@@ -56,7 +56,7 @@ public class Reserve {
             }
         }
     }
-    public void update(int productID, String productName, int year, String genre, String authorName, String directorName, boolean isReserved) {
+    public void update(int productID, String productName, int year, String genre, String Name, boolean isReserved) {
         // Connect to the database
         Connection conn = null;
         try {
@@ -68,7 +68,7 @@ public class Reserve {
             pstmt.setString(1, productName);
             pstmt.setInt(2, year);
             pstmt.setString(3, genre);
-            pstmt.setString(4, authorName);
+            pstmt.setString(4, Name);
             pstmt.setBoolean(5, isReserved);
             pstmt.setInt(6, productID);
             pstmt.executeUpdate();
@@ -79,7 +79,7 @@ public class Reserve {
             pstmt.setString(1, productName);
             pstmt.setInt(2, year);
             pstmt.setString(3, genre);
-            pstmt.setString(4, directorName);
+            pstmt.setString(4, Name);
             pstmt.setBoolean(5, isReserved);
             pstmt.setInt(6, productID);
             pstmt.executeUpdate();
@@ -98,8 +98,52 @@ public class Reserve {
         }
     }
 
-    public void Reserve(int productID, String productName, String borrower, String dateBorrowed, String dateDue) {
+    public void ReserveBook(int productID, String productName, String borrower, String dateBorrowed, String dateDue, boolean isReserved) {
+        // Connect to the database
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306", USERNAME, PASS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Update the book in the books table
+        String sql = "UPDATE Books SET product_id= ?, product_name = ?, borrower = ?, date_borrowed = ? WHERE date_due = ? AND is_reserved = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, productID);
+            pstmt.setString(2, productName);
+            pstmt.setString(3, borrower);
+            pstmt.setString(4, dateBorrowed);
+            pstmt.setString(5, dateDue);
+            pstmt.setBoolean(6, isReserved);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    public void ReserveMovie(int productID, String productName, String borrower, String dateBorrowed, String dateDue, boolean isReserved) {
+        // Connect to the database
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306", USERNAME, PASS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Update the book in the books table
+        String sql = "UPDATE Movies SET product_id= ?, product_name = ?, borrower = ?, date_borrowed = ? WHERE date_due = ? AND is_reserved = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, productID);
+            pstmt.setString(2, productName);
+            pstmt.setString(3, borrower);
+            pstmt.setString(4, dateBorrowed);
+            pstmt.setString(5, dateDue);
+            pstmt.setBoolean(6, isReserved);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
