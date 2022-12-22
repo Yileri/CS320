@@ -1,10 +1,11 @@
 import javax.swing.*;
 
-public class RequestBookGUI {
+public class RequestBookGUI extends JDialog {
 
     RequestBookGUI() {
 
-        JFrame frame = new JFrame("Requested Book Details");
+        this.setTitle("Requested Book Details");
+        this.setModal(true);
 
         //Labels
         JLabel nameLabel,genreLabel,typeLabel,yearLabel;
@@ -20,10 +21,10 @@ public class RequestBookGUI {
         yearLabel=new JLabel("Year:");
         yearLabel.setBounds(30,120, 100,30);
 
-        frame.add(nameLabel);
-        frame.add(genreLabel);
-        frame.add(typeLabel);
-        frame.add(yearLabel);
+        this.add(nameLabel);
+        this.add(genreLabel);
+        this.add(typeLabel);
+        this.add(yearLabel);
 
         //Text Fields
         JTextField nameField = new JTextField();
@@ -38,21 +39,20 @@ public class RequestBookGUI {
         JTextField yearField=new JTextField();
         yearField.setBounds(110, 120, 200, 30);
 
-        frame.add(nameField);
-        frame.add(genreField);
-        frame.add(yearField);
-        frame.add(authorField);
+        this.add(nameField);
+        this.add(genreField);
+        this.add(yearField);
+        this.add(authorField);
 
         //Submit Button
         JButton submitButton=new JButton("Submit Request");
         submitButton.setBounds(120,160,130,25);
 
-        frame.add(submitButton);
+        this.add(submitButton);
 
-        frame.setSize(370,250);//400 width and 500 height
-        frame.setLayout(null);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-
+        this.setSize(370,250);//400 width and 500 height
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 }
