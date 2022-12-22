@@ -27,8 +27,20 @@ public class LibraryListGUI implements ActionListener {
 
         libFrame.getContentPane().add(BorderLayout.NORTH, searchPanel);
 
-        JPanel itemPanel = new JPanel();
-        JScrollPane scrollPane = new JScrollPane(itemPanel);
+        String[] itemColumns = {"ID", "Name", "Genre", "Year", "Author/Director", "Reserved"};
+        String[][] itemDatas = {
+                {"1", "Spider-Man", "Action", "2002", "Sam Raimi", "No"},
+                {"2", "Spider-Man 2", "Action", "2004", "Sam Raimi", "Yes"},
+                {"3", "Spider-Man 3", "Action", "2007", "Sam Raimi", "No"},
+                {"4", "The Amazing Spider-Man", "Action", "2012", "Marc Webb", "No"},
+                {"5", "The Amazing Spider-Man 2", "Action", "2014", "Marc Webb", "Yes"},
+                {"6", "Spider-Man: Homecoming", "Action", "2017", "Jon Watts", "No"},
+                {"7", "Spider-Man: Far From Home", "Action", "2019", "Jon Watts", "No"},
+                {"8", "Spider-Man: No Way Home", "Action", "2021", "Jon Watts", "Yes"}
+        };
+
+        JTable itemTable = new JTable(itemDatas, itemColumns);
+        JScrollPane scrollPane = new JScrollPane(itemTable);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         libFrame.add(BorderLayout.CENTER, scrollPane);

@@ -48,11 +48,6 @@ public class FilterGUI extends JDialog {
         yearPanel.add(yearLabel);
         yearPanel.add(yearBox);
 
-        // adding panels to main frame
-        this.add(typePanel);
-        this.add(genrePanel);
-        this.add(yearPanel);
-
         JPanel buttonsPanel = new JPanel();
         JButton clearButton = new JButton("Clear");
         JButton applyButton = new JButton("Apply");
@@ -69,6 +64,10 @@ public class FilterGUI extends JDialog {
             }
         });
 
+        // adding panels to main frame
+        this.add(typePanel);
+        this.add(genrePanel);
+        this.add(yearPanel);
         this.add(buttonsPanel, BorderLayout.SOUTH);
 
         this.setVisible(true);
