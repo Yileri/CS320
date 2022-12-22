@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FilterGUI extends JDialog {
 
@@ -50,6 +52,24 @@ public class FilterGUI extends JDialog {
         this.add(typePanel);
         this.add(genrePanel);
         this.add(yearPanel);
+
+        JPanel buttonsPanel = new JPanel();
+        JButton clearButton = new JButton("Clear");
+        JButton applyButton = new JButton("Apply");
+        buttonsPanel.add(clearButton, BorderLayout.WEST);
+        buttonsPanel.add(applyButton, BorderLayout.EAST);
+
+        // function for clearing all filters
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                typeBox.setSelectedIndex(0);
+                yearBox.setSelectedIndex(0);
+                genreBox.setSelectedIndex(0);
+            }
+        });
+
+        this.add(buttonsPanel, BorderLayout.SOUTH);
 
         this.setVisible(true);
     }
