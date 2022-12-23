@@ -76,6 +76,12 @@ public class LoginGUI {
                     frame.setVisible(false);
                     LibraryListGUI librarylist = new LibraryListGUI();
                 }
+                else if (username.equals("user") && password.equals("123456")){
+                    isAdmin = false;
+                    JOptionPane.showMessageDialog(null, "Login Successful");
+                    frame.setVisible(false);
+                    LibraryListGUI librarylist = new LibraryListGUI();
+                }
                 else
                     JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
             }

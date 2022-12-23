@@ -109,19 +109,27 @@ public class LibraryListGUI {
             }
         });
 
-        JMenu reserve, filter, request, returnItem, addItem;
-        JMenuItem requestBook, requestMovie;
-        JMenuBar mbUser = new JMenuBar();
-        JMenuBar mbAdmin = new JMenuBar();
+        JMenu reserve,request, returnItem, addRemoveItem, requestedItems;
+        JMenuItem requestBook, requestMovie, showList;
+        JMenuBar mb = new JMenuBar();
         reserve = new JMenu("Reserve");
-        filter = new JMenu("Filter");
         request = new JMenu("Request");
         returnItem = new JMenu("Return Item");
-        addItem = new JMenu("Add Item");
+        addRemoveItem = new JMenu("Add/Remove Item");
+        requestedItems = new JMenu("Requested Items");
         requestBook = new JMenuItem("Request Book");
         requestMovie = new JMenuItem("Request Movie");
+        showList = new JMenuItem("Show List");
+        requestedItems.add(showList);
         request.add(requestBook);
         request.add(requestMovie);
+
+        showList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Requested Items List Opens Up
+            }
+        });
         requestBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,18 +144,18 @@ public class LibraryListGUI {
             }
         });
 
-        mbUser.add(reserve);
-        //mbUser.add(filter);
-        mbUser.add(request);
+        mb.add(reserve);
+        //mb.add(filter);
+        mb.add(request);
+        mb.add(returnItem);
 
-        mbAdmin.add(reserve);
-        //mbAdmin.add(filter);
-        mbAdmin.add(request);
-        mbAdmin.add(returnItem);
-        mbAdmin.add(addItem);
+        if(LoginGUI.isAdmin){
+            mb.add(addRemoveItem);
+            mb.add(requestedItems);
+        }
 
-        libFrame.add(mbAdmin);
-        libFrame.setJMenuBar(mbAdmin);
+        libFrame.add(mb);
+        libFrame.setJMenuBar(mb);
         //libFrame.setLayout(null);
         libFrame.setVisible(true);
     }
