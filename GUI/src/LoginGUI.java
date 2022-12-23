@@ -5,6 +5,7 @@ import java.awt.event.*;
 public class LoginGUI {
     private static JTextField usernameField;
     private static JPasswordField passwordField;
+    static boolean isAdmin = false;
     public static void main(String[] args) {
 
         /* //Version1
@@ -69,12 +70,14 @@ public class LoginGUI {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
 
-                if (username.equals("admin") && password.equals("123456"))
+                if (username.equals("admin") && password.equals("123456")) {
+                    isAdmin = true;
                     JOptionPane.showMessageDialog(null, "Login Successful");
-                    //Buradan ana ekrana
+                    frame.setVisible(false);
+                    LibraryListGUI librarylist = new LibraryListGUI();
+                }
                 else
                     JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
-                //Kendisi tekrar giriş ekranına dönüyor, daha doğrusu giriş ekranı kapanmıyor.
             }
         });
 

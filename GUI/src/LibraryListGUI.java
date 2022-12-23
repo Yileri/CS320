@@ -1,8 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class LibraryListGUI implements ActionListener {
+public class LibraryListGUI {
     public static void main(String args[]) {
+        LibraryListGUI librarylist = new LibraryListGUI();
+    }
+
+    LibraryListGUI(){
         JFrame libFrame = new JFrame("ULMS");
         libFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         libFrame.setSize(600, 575);
@@ -132,7 +136,6 @@ public class LibraryListGUI implements ActionListener {
             }
         });
 
-
         mbUser.add(reserve);
         //mbUser.add(filter);
         mbUser.add(request);
@@ -147,9 +150,5 @@ public class LibraryListGUI implements ActionListener {
         libFrame.setJMenuBar(mbAdmin);
         //libFrame.setLayout(null);
         libFrame.setVisible(true);
-    }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
     }
 }
