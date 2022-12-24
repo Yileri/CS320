@@ -19,6 +19,7 @@ public class FilterGUI extends JDialog {
         JLabel authorLabel = new JLabel("Author:");
         JLabel directorLabel = new JLabel("Director:");
 
+
         //dropdown menus
         String types[] = {"Select", "Book", "Movie"};
         JComboBox typeBox = new JComboBox(types);

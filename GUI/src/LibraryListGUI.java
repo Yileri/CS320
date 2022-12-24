@@ -110,7 +110,7 @@ public class LibraryListGUI {
         });
 
         JMenu reserve,request, returnItem, addRemoveItem, requestedItems;
-        JMenuItem requestBook, requestMovie, showList;
+        JMenuItem requestBook, requestMovie, showBookList, showMovieList;
         JMenuBar mb = new JMenuBar();
         reserve = new JMenu("Reserve");
         request = new JMenu("Request");
@@ -119,12 +119,14 @@ public class LibraryListGUI {
         requestedItems = new JMenu("Requested Items");
         requestBook = new JMenuItem("Request Book");
         requestMovie = new JMenuItem("Request Movie");
-        showList = new JMenuItem("Show List");
-        requestedItems.add(showList);
+        showBookList = new JMenuItem("Show Requested Book List");
+        showMovieList = new JMenuItem("Show Requested Movie List");
+        requestedItems.add(showBookList);
+        requestedItems.add(showMovieList);
         request.add(requestBook);
         request.add(requestMovie);
 
-        showList.addActionListener(new ActionListener() {
+        showBookList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Requested Items List Opens Up
