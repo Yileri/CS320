@@ -1,13 +1,15 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class LibraryListGUI {
+public class LibraryListGUI extends JFrame{
     public static void main(String args[]) {
         LibraryListGUI librarylist = new LibraryListGUI();
     }
+
+    JButton reserveButton = new JButton();
 
     LibraryListGUI(){
         JFrame libFrame = new JFrame("ULMS");
@@ -61,8 +63,16 @@ public class LibraryListGUI {
 
 
         //creating book table
-        String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "Reserved"};
-        DefaultTableModel bookTableModel = new DefaultTableModel(bookColumns, 0);
+        String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "Available", "Reserve"};
+        DefaultTableModel bookTableModel = new DefaultTableModel(bookColumns, 0) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 6;
+            }
+        };
+
+
         ArrayList<Book> bookDatas = SelectionTool.getAllBooks();
 
         for (int i=0; i<bookDatas.size(); i++) {
@@ -78,11 +88,28 @@ public class LibraryListGUI {
         }
 
         JTable bookTable = new JTable(bookTableModel);
-        bookTable.setEnabled(false);
+
+        bookTable.getColumn("Reserve").setCellRenderer(new ButtonRenderer());
+        bookTable.getColumn("Reserve").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+        reserveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Do you want to reserve this item?");
+            }
+        });
 
         // creating movie table
-        String[] movieColumns = {"ID", "Name", "Genre", "Year", "Director", "Reserved"};
-        DefaultTableModel movieTableModel = new DefaultTableModel(movieColumns, 0);
+        String[] movieColumns = {"ID", "Name", "Genre", "Year", "Director", "Available", "Reserve"};
+
+        DefaultTableModel movieTableModel = new DefaultTableModel(movieColumns, 0){
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 6;
+            }
+        };
+
         ArrayList<Movie> movieDatas = SelectionTool.getAllMovies();
 
         for (int i=0; i<movieDatas.size(); i++) {
@@ -98,7 +125,9 @@ public class LibraryListGUI {
         }
 
         JTable movieTable = new JTable(movieTableModel);
-        movieTable.setEnabled(false);
+
+        movieTable.getColumn("Reserve").setCellRenderer(new ButtonRenderer());
+        movieTable.getColumn("Reserve").setCellEditor(new ButtonEditor(new JCheckBox()));
 
         JScrollPane bookScrollPane = new JScrollPane(bookTable);
         bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -213,4 +242,34 @@ public class LibraryListGUI {
         //libFrame.setLayout(null);
         libFrame.setVisible(true);
     }
+
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText((value == null) ? "Reserve" : value.toString());
+            return this;
+        }
+    }
+    class ButtonEditor extends DefaultCellEditor {
+        private String label;
+
+        public ButtonEditor(JCheckBox checkBox) {
+            super(checkBox);
+        }
+
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                                                     boolean isSelected, int row, int column) {
+            label = (value == null) ? "Reserve" : value.toString();
+            reserveButton.setText(label);
+            return reserveButton;
+        }
+
+        public Object getCellEditorValue() {
+            return new String(label);
+        }
+    }
+
 }
