@@ -13,12 +13,12 @@ public class Book extends Product{
         super(productID,productName, year,genre,isReserved);
         this.authorName=authorName;
     }
-    public void reserve(String Borrower , LocalDate DateBorrowed, LocalDate DateDue) {
+    public void reserveOrReturn(String Borrower , LocalDate DateBorrowed, LocalDate DateDue) {
         // Connect to the database
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-String a="a";
+
             // Insert a new book into the Books table
             String sql = "UPDATE Book SET borrower =? ,dateBorrowed=?,dateDue=?, isReserved=? WHERE productID=?";
 
@@ -26,11 +26,13 @@ String a="a";
             pstmt.setString(1,Borrower);
             pstmt.setDate(2, Date.valueOf(DateBorrowed));
             pstmt.setDate(3, Date.valueOf(DateDue));
-            this.setIsReserved(true);
             pstmt.setBoolean(4,true);
             pstmt.setInt(5,getProductID());
             pstmt.executeUpdate();
-
+            this.setIsReserved(true);
+            if(DateDue==null){
+                this.setIsReserved(false);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

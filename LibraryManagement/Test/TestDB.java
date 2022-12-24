@@ -102,14 +102,14 @@ public class TestDB {
         staff.update("yorgun");
     }
     @Test
-    public void testReserve() throws SQLException {
+    public void testReserveOrReturn() throws SQLException {
         // Add a book to the table using the addBook function
         // Add the book to the database
         Book book = new Book(56, "deneme2", 1925, "Novel", "F. Scott Fitzgerald",false);
         Library.addBook(book);
         String str = "2022-12-24";
         LocalDate date = LocalDate.parse(str);
-        book.reserve("ekin",date,date);
+        book.reserveOrReturn("ekin",date,date);
         Library.removeBook(book);
 
     }
