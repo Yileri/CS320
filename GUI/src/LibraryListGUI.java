@@ -1,6 +1,9 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 public class LibraryListGUI {
     public static void main(String args[]) {
         LibraryListGUI librarylist = new LibraryListGUI();
@@ -56,16 +59,35 @@ public class LibraryListGUI {
 
         bookTypeButton.setSelected(true);
 
+        //to add the items
+        SelectionTool selTol = new SelectionTool();
+
         //tables
         String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "Reserved"};
+        /*
         String[][] bookDatas = {
                 {"1", "To Kill a Mockingbird", "Fiction", "1960", "Harper Lee", "Yes"},
                 {"2", "The Great Gatsby", "Fiction", "1925", "F. Scott Fitzgerald", "Yes"},
                 {"3", "The Catcher in the Rye", "Fiction", "1951", "J.D. Salinger", "Yes"},
                 {"4", "The Grapes of Wrath", "Fiction", "1939", "John Steinbeck", "Yes"},
         };
+         */
 
-        JTable bookTable = new JTable(bookDatas, bookColumns);
+        // @Ekin bak burada yazdıklarım
+        DefaultTableModel bookTableModel = new DefaultTableModel(bookColumns, 0);
+        ArrayList<Book> bookDatas = selTol.getAllBooks();
+        for (int i=0; i<bookDatas.size(); i++) {
+            String id = bookDatas.get(i).getProductID() + "";
+            String name = bookDatas.get(i).getProductName();
+            String genre = bookDatas.get(i).getGenre();
+            String year = bookDatas.get(i).getYear() + "";
+            String author = bookDatas.get(i).getAuthorName();
+            String reserved = bookDatas.get(i).getIsReserved() + "";
+
+            Object[] bookData = {id, name, genre, year, author, reserved};
+            bookTableModel.addRow(bookData);
+        }
+        JTable bookTable = new JTable(bookTableModel);
 
         String[] movieColumns = {"ID", "Name", "Genre", "Year", "Director", "Reserved"};
         String[][] movieDatas = {
@@ -137,10 +159,10 @@ public class LibraryListGUI {
         requestedBooks.setLayout(new FlowLayout());
         requestedBooks.setLocationRelativeTo(null);
 
-        JTable requestedBookTable = new JTable(bookDatas, bookColumns);
-        JScrollPane requestedBookScrollPane = new JScrollPane(requestedBookTable);
-        bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        requestedBooks.add(requestedBookScrollPane);
+        //JTable requestedBookTable = new JTable(bookDatas, bookColumns);
+        //JScrollPane requestedBookScrollPane = new JScrollPane(requestedBookTable);
+        //bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //requestedBooks.add(requestedBookScrollPane);
 
         JTable requestedMoviesTable = new JTable(movieDatas, movieColumns);
         JScrollPane requestedMoviesScrollPane = new JScrollPane(requestedMoviesTable);
