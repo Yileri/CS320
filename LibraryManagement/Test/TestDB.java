@@ -40,7 +40,7 @@ public class TestDB {
     @Test
     public void testAddBook() throws SQLException {
         // Add a book to the table using the addBook function
-        Book book = new Book(41, "The Great Gatsby", 1925, "Novel", "F. Scott Fitzgerald");
+        Book book = new Book(41, "The Great Gatsby", 1925, "Novel", "F. Scott Fitzgerald",false);
 
         // Add the book to the database
         Library.addBook(book);
@@ -82,7 +82,7 @@ public class TestDB {
     @Test
     public void testremoveBook() throws SQLException {
         // Add a book to the table using the addBook function
-        Book book = new Book(42, "The Great Gatsby", 1925, "Novel", "F. Scott Fitzgerald");
+        Book book = new Book(42, "The Great Gatsby", 1925, "Novel", "F. Scott Fitzgerald",false);
         // Add the book to the database
         Library.addBook(book);
         Library.removeBook(book);
@@ -105,7 +105,7 @@ public class TestDB {
     public void testReserve() throws SQLException {
         // Add a book to the table using the addBook function
         // Add the book to the database
-        Book book = new Book(56, "deneme2", 1925, "Novel", "F. Scott Fitzgerald");
+        Book book = new Book(56, "deneme2", 1925, "Novel", "F. Scott Fitzgerald",false);
         Library.addBook(book);
         String str = "2022-12-24";
         LocalDate date = LocalDate.parse(str);

@@ -12,11 +12,12 @@ public class Product {
     private  String dateDue=null;
     private String borrower=null;
 
-    public Product(int productID,String productName,int year,String genre){
+    public Product(int productID,String productName,int year,String genre,boolean isReserved){
         this.productID=productID;
         this.productName=productName;
         this.year=year;
         this.genre=genre;
+        this.isReserved=isReserved;
     }
 
 

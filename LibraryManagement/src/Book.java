@@ -9,8 +9,8 @@ public class Book extends Product{
 
     private String authorName;
 
-    public Book(int productID, String productName, int year, String genre, String authorName){
-        super(productID,productName, year,genre);
+    public Book(int productID, String productName, int year, String genre, String authorName,boolean isReserved){
+        super(productID,productName, year,genre,isReserved);
         this.authorName=authorName;
     }
     public void reserve(String Borrower , LocalDate DateBorrowed, LocalDate DateDue) {
