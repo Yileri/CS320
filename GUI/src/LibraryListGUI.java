@@ -78,6 +78,7 @@ public class LibraryListGUI {
         }
 
         JTable bookTable = new JTable(bookTableModel);
+        bookTable.setEnabled(false);
 
         // creating movie table
         String[] movieColumns = {"ID", "Name", "Genre", "Year", "Director", "Reserved"};
@@ -97,6 +98,7 @@ public class LibraryListGUI {
         }
 
         JTable movieTable = new JTable(movieTableModel);
+        movieTable.setEnabled(false);
 
         JScrollPane bookScrollPane = new JScrollPane(bookTable);
         bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
