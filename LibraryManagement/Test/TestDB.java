@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -131,5 +132,10 @@ public class TestDB {
     public void testSıgnIn() throws SQLException {
 
         System.out.println(Library.SignIn("yorgun",1)); ;
+    }
+    @Test
+    public void testgetAllBooks() throws SQLException {
+        ArrayList<Book> liste = SelectionTool.getAllBooks();
+        System.out.println(liste); ;
     }
 }

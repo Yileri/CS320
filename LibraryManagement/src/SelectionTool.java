@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 
 public class SelectionTool {
-    private static final String DB_URL = "jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306";
+    private static final String DB_URL = "jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306/sys";
     private static final String USERNAME = "admin";
     private static final String PASSWORD = "admin123";
 
 
-    public ArrayList<Book> getAllBooks(){
+    public static ArrayList<Book> getAllBooks(){
         ArrayList<Book> books=new ArrayList<Book>();
 
         try{
             // Load the JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
+
 
             // Connect to the database
             Connection connection=DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
