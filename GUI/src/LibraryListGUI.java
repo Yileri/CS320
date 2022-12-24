@@ -10,6 +10,7 @@ public class LibraryListGUI extends JFrame{
     }
 
     JButton reserveButton = new JButton();
+    JButton availabilityButton = new JButton();
 
     LibraryListGUI(){
         JFrame libFrame = new JFrame("ULMS");
@@ -64,6 +65,7 @@ public class LibraryListGUI extends JFrame{
 
         //creating book table
         String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "Available", "Reserve"};
+
         DefaultTableModel bookTableModel = new DefaultTableModel(bookColumns, 0) {
 
             @Override
@@ -89,8 +91,8 @@ public class LibraryListGUI extends JFrame{
 
         JTable bookTable = new JTable(bookTableModel);
 
-        bookTable.getColumn("Reserve").setCellRenderer(new ButtonRenderer());
-        bookTable.getColumn("Reserve").setCellEditor(new ButtonEditor(new JCheckBox()));
+        bookTable.getColumn("Reserve").setCellRenderer(new ReserveButtonRenderer());
+        bookTable.getColumn("Reserve").setCellEditor(new ReserveButtonEditor(new JCheckBox()));
 
         reserveButton.addActionListener(new ActionListener() {
             @Override
@@ -126,8 +128,8 @@ public class LibraryListGUI extends JFrame{
 
         JTable movieTable = new JTable(movieTableModel);
 
-        movieTable.getColumn("Reserve").setCellRenderer(new ButtonRenderer());
-        movieTable.getColumn("Reserve").setCellEditor(new ButtonEditor(new JCheckBox()));
+        movieTable.getColumn("Reserve").setCellRenderer(new ReserveButtonRenderer());
+        movieTable.getColumn("Reserve").setCellEditor(new ReserveButtonEditor(new JCheckBox()));
 
         JScrollPane bookScrollPane = new JScrollPane(bookTable);
         bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -136,7 +138,9 @@ public class LibraryListGUI extends JFrame{
         movieScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 
+        // book table will be seen upon starting application
         libFrame.add(bookScrollPane);
+
 
         // switch to book list
         bookTypeButton.addActionListener(new ActionListener() {
@@ -243,8 +247,8 @@ public class LibraryListGUI extends JFrame{
         libFrame.setVisible(true);
     }
 
-    class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
+    class ReserveButtonRenderer extends JButton implements TableCellRenderer {
+        public ReserveButtonRenderer() {
             setOpaque(true);
         }
 
@@ -252,11 +256,12 @@ public class LibraryListGUI extends JFrame{
             setText((value == null) ? "Reserve" : value.toString());
             return this;
         }
+
     }
-    class ButtonEditor extends DefaultCellEditor {
+    class ReserveButtonEditor extends DefaultCellEditor {
         private String label;
 
-        public ButtonEditor(JCheckBox checkBox) {
+        public ReserveButtonEditor(JCheckBox checkBox) {
             super(checkBox);
         }
 
@@ -271,5 +276,4 @@ public class LibraryListGUI extends JFrame{
             return new String(label);
         }
     }
-
 }
