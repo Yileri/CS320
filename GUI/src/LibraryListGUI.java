@@ -140,12 +140,6 @@ public class LibraryListGUI {
             }
         });
 
-        showBookList.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Requested Items List Opens Up
-            }
-        });
         requestBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
