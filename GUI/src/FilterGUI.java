@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FilterGUI extends JDialog {
 
@@ -24,9 +26,11 @@ public class FilterGUI extends JDialog {
         String types[] = {"Select", "Book", "Movie"};
         JComboBox typeBox = new JComboBox(types);
 
-        String genres[] = {"Select", "Action", "Adventure", "Comedy", "Drama",
-                "Fantasy", "Fiction", "Historical Fiction",
-                "Horror", "Mystery", "Romance", "Sci-Fi", "Thriller"};
+        List<String> genresDB = Library.listBookGenres();
+        String[] genres = new String[genresDB.size()];
+        for (int i=0; i<genres.length; i++) {
+            genres[i] = genresDB.get(i);
+        }
         JComboBox genreBox = new JComboBox(genres);
 
         String years[] = new String[124];
