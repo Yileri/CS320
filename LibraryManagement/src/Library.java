@@ -192,17 +192,21 @@ public class Library {
             System.out.println(e.getMessage());
         }
     }
-    public boolean SıgnIn(String UserName, int id) {
+    public static boolean SignIn(String UserName, int id) {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Delete the book from the Books table
-            String sql = "SELECT userID,userName FROM User WHERE userID =id ,userName=UserName";
-            Statement pstmt = conn.createStatement();
-            ResultSet resultSet=pstmt.executeQuery(sql);
-            if(resultSet.getInt("userID")==id&&resultSet.getString("userName").equals(UserName)){
-                return true;
+            String sql = "SELECT userID,userName FROM User WHERE userID = ? AND userName = ?";
+           PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.setString(2, UserName);
+            ResultSet resultSet=pstmt.executeQuery();
+            while(resultSet.next()){
+                if(resultSet.getInt("userID")==id && resultSet.getString("userName").equals(UserName)){
+                    return true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -274,7 +278,7 @@ public static void Request(String requested,String type){
         }
     }
 }
-    public static ArrayList<String> Requestlist(){
+    public static ArrayList<String> RequestList(){
         ArrayList<String> request =new ArrayList<>();
         Connection conn = null;
         try {

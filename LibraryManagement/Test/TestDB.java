@@ -124,7 +124,12 @@ public class TestDB {
     }
     @Test
     public void testRequestedList() throws SQLException {
-        List<String> liste = Library.Requestlist();
+        List<String> liste = Library.RequestList();
         System.out.println(liste); ;
+    }
+    @Test
+    public void testSıgnIn() throws SQLException {
+
+        System.out.println(Library.SignIn("yorgun",1)); ;
     }
 }
