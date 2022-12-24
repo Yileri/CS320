@@ -87,6 +87,7 @@ public class LibraryListGUI {
         JScrollPane movieScrollPane = new JScrollPane(movieTable);
         movieScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
+
         libFrame.add(bookScrollPane);
 
         // switch to book list
@@ -126,17 +127,37 @@ public class LibraryListGUI {
         request.add(requestBook);
         request.add(requestMovie);
 
+        JFrame requestedMovies = new JFrame("Requested Movies");
+        requestedMovies.setSize(550, 500);
+        requestedMovies.setLayout(new FlowLayout());
+        requestedMovies.setLocationRelativeTo(null);
+
+        JFrame requestedBooks = new JFrame("Requested Books");
+        requestedBooks.setSize(550, 500);
+        requestedBooks.setLayout(new FlowLayout());
+        requestedBooks.setLocationRelativeTo(null);
+
+        JTable requestedBookTable = new JTable(bookDatas, bookColumns);
+        JScrollPane requestedBookScrollPane = new JScrollPane(requestedBookTable);
+        bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        requestedBooks.add(requestedBookScrollPane);
+
+        JTable requestedMoviesTable = new JTable(movieDatas, movieColumns);
+        JScrollPane requestedMoviesScrollPane = new JScrollPane(requestedMoviesTable);
+        bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        requestedMovies.add(requestedMoviesScrollPane);
+
         showBookList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Requested books must be shown here
+                requestedBooks.setVisible(true);
             }
         });
 
         showMovieList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Requested movies must be shown here
+                requestedMovies.setVisible(true);
             }
         });
 
@@ -163,6 +184,10 @@ public class LibraryListGUI {
             mb.add(addRemoveItem);
             mb.add(requestedItems);
         }
+
+        //JTable for requested items
+
+
 
         libFrame.add(mb);
         libFrame.setJMenuBar(mb);
