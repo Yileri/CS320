@@ -129,6 +129,20 @@ public class LibraryListGUI {
         showBookList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Requested books must be shown here
+            }
+        });
+
+        showMovieList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Requested movies must be shown here
+            }
+        });
+
+        showBookList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 //Requested Items List Opens Up
             }
         });
