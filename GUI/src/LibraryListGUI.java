@@ -59,23 +59,12 @@ public class LibraryListGUI {
 
         bookTypeButton.setSelected(true);
 
-        //to add the items
-        SelectionTool selTol = new SelectionTool();
 
-        //tables
+        //creating book table
         String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "Reserved"};
-        /*
-        String[][] bookDatas = {
-                {"1", "To Kill a Mockingbird", "Fiction", "1960", "Harper Lee", "Yes"},
-                {"2", "The Great Gatsby", "Fiction", "1925", "F. Scott Fitzgerald", "Yes"},
-                {"3", "The Catcher in the Rye", "Fiction", "1951", "J.D. Salinger", "Yes"},
-                {"4", "The Grapes of Wrath", "Fiction", "1939", "John Steinbeck", "Yes"},
-        };
-         */
-
-        // @Ekin bak burada yazdıklarım
         DefaultTableModel bookTableModel = new DefaultTableModel(bookColumns, 0);
-        ArrayList<Book> bookDatas = selTol.getAllBooks();
+        ArrayList<Book> bookDatas = SelectionTool.getAllBooks();
+
         for (int i=0; i<bookDatas.size(); i++) {
             String id = bookDatas.get(i).getProductID() + "";
             String name = bookDatas.get(i).getProductName();
@@ -87,21 +76,27 @@ public class LibraryListGUI {
             Object[] bookData = {id, name, genre, year, author, reserved};
             bookTableModel.addRow(bookData);
         }
+
         JTable bookTable = new JTable(bookTableModel);
 
+        // creating movie table
         String[] movieColumns = {"ID", "Name", "Genre", "Year", "Director", "Reserved"};
-        String[][] movieDatas = {
-                {"1", "Spider-Man", "Action", "2002", "Sam Raimi", "No"},
-                {"2", "Spider-Man 2", "Action", "2004", "Sam Raimi", "Yes"},
-                {"3", "Spider-Man 3", "Action", "2007", "Sam Raimi", "No"},
-                {"4", "The Amazing Spider-Man", "Action", "2012", "Marc Webb", "No"},
-                {"5", "The Amazing Spider-Man 2", "Action", "2014", "Marc Webb", "Yes"},
-                {"6", "Spider-Man: Homecoming", "Action", "2017", "Jon Watts", "No"},
-                {"7", "Spider-Man: Far From Home", "Action", "2019", "Jon Watts", "No"},
-                {"8", "Spider-Man: No Way Home", "Action", "2021", "Jon Watts", "Yes"}
-        };
+        DefaultTableModel movieTableModel = new DefaultTableModel(movieColumns, 0);
+        ArrayList<Movie> movieDatas = SelectionTool.getAllMovies();
 
-        JTable movieTable = new JTable(movieDatas, movieColumns);
+        for (int i=0; i<movieDatas.size(); i++) {
+            String id = movieDatas.get(i).getProductID() + "";
+            String name = movieDatas.get(i).getProductName();
+            String genre = movieDatas.get(i).getGenre();
+            String year = movieDatas.get(i).getYear() + "";
+            String director = movieDatas.get(i).getDirectorName();
+            String reserved = movieDatas.get(i).getIsReserved() + "";
+
+            Object[] movieData = {id, name, genre, year, director, reserved};
+            movieTableModel.addRow(movieData);
+        }
+
+        JTable movieTable = new JTable(movieTableModel);
 
         JScrollPane bookScrollPane = new JScrollPane(bookTable);
         bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -164,10 +159,10 @@ public class LibraryListGUI {
         //bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         //requestedBooks.add(requestedBookScrollPane);
 
-        JTable requestedMoviesTable = new JTable(movieDatas, movieColumns);
-        JScrollPane requestedMoviesScrollPane = new JScrollPane(requestedMoviesTable);
-        bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        requestedMovies.add(requestedMoviesScrollPane);
+        //JTable requestedMoviesTable = new JTable(movieDatas, movieColumns);
+        //JScrollPane requestedMoviesScrollPane = new JScrollPane(requestedMoviesTable);
+        //bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //requestedMovies.add(requestedMoviesScrollPane);
 
         showBookList.addActionListener(new ActionListener() {
             @Override
