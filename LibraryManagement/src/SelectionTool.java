@@ -51,12 +51,12 @@ public class SelectionTool {
         return books;
     }
 
-    public ArrayList<Movie> getAllMovies(){
+    public static ArrayList<Movie> getAllMovies(){
         ArrayList<Movie> movies=new ArrayList<Movie>();
 
         try{
             // Load the JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
+
 
             // Connect to the database
             Connection connection=DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
