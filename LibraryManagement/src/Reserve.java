@@ -3,65 +3,13 @@ import java.sql.*;
 
 public class Reserve {
 
-    private static final String DB_URL ="jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306" ;
+    private static final String DB_URL ="jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306/sys" ;
     private static final String PASS ="admin" ;
     private static final String USERNAME = "admin123";
 
 
-    private int year;
-    private int productID;
-    private String productName;
-    private String borrower;
-    private String dateBorrowed;
-    private String dateDue;
-    private  boolean isReserved;
-    private String Name; //director name or author name
 
-
-
-    public void create(int productID, String productName, int year, String genre, String Name,boolean isReserved) {
-        // Connect to the database
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(DB_URL, USERNAME, PASS);
-
-            // Insert a new book into the Books table
-            String sql = "INSERT INTO Books (productID, productName, year, genre, Name ,isReserved) VALUES (?, ?, ?, ?, ?,?)";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, productID);
-            pstmt.setString(2, productName);
-            pstmt.setInt(3, year);
-            pstmt.setString(4, genre);
-            pstmt.setString(5, Name);
-            pstmt.setBoolean(6,isReserved);
-            pstmt.executeUpdate();
-
-            // Insert a new movie into the Movies table
-            sql = "INSERT INTO Movies (productID, productName, year, genre, Name,isReserved) VALUES (?, ?, ?, ?, ?,?)";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, productID);
-            pstmt.setString(2, productName);
-            pstmt.setInt(3, year);
-            pstmt.setString(4, genre);
-            pstmt.setString(5, Name);
-            pstmt.setBoolean(6,isReserved);
-
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Close the connection
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public void update(int productID, String productName, int year, String genre, String Name, boolean isReserved) {
+    public void reserveUpdate(int productID, String productName, int year, String genre, String Name, boolean isReserved) {
         // Connect to the database
         Connection conn = null;
         try {

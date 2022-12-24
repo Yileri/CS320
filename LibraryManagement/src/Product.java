@@ -5,11 +5,21 @@ public class Product {
     private int year;
     private String genre;
 
-    private boolean isReserved;
+    private boolean isReserved=false;
 
-    private String dateBorrowed;
+    private String dateBorrowed=null;
 
-    private  String dateDue;
+    private  String dateDue=null;
+    private String borrower=null;
+
+    public Product(int productID,String productName,int year,String genre){
+        this.productID=productID;
+        this.productName=productName;
+        this.year=year;
+        this.genre=genre;
+    }
+
+
 
     public int getProductID(){
         return productID;
@@ -28,6 +38,9 @@ public class Product {
     public int getYear(){
         return year;
     }
+    public boolean getIsReserved() {
+        return isReserved;
+    }
 
     public void setYear(){
 
@@ -35,6 +48,9 @@ public class Product {
 
     public String getGenre(){
         return genre;
+    }
+    public void setIsReserved(boolean b) {
+        this.isReserved=b;
     }
 
     public void setGenre(){

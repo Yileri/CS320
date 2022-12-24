@@ -2,13 +2,11 @@ public class Movie extends Product{
 
     private String directorName;
 
-    public Movie(int productID, String productName, int year, String genre, String directorName,boolean isReserved) {
-        this.directorName= directorName;
-
+    public Movie(int productID, String productName, int year, String genre, String Name,boolean isReserved) {
+        super(productID,productName, year,genre);
+        this.directorName=Name;
     }
-    public Movie(int productID, String productName, String borrower, String dateBorrowed, String dateDue, boolean isReserved){
 
-    }
 
 
 
@@ -20,4 +18,5 @@ public class Movie extends Product{
         this.directorName = directorName;
     }
 }
+
 

@@ -1,57 +1,53 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Staff extends User{
 
-    private static final String DB_URL ="jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306" ;
-    private static final String PASS ="admin" ;
-    private static final String USERNAME = "admin123";
+    private static final String DB_URL ="jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306/sys" ;
+    private static final String PASS ="admin123" ;
+    private static final String USERNAME = "admin";
 
 
 
-    Staff (int userID, String userName, String userType){
+    Staff (int userID, String userName){
         super(userID,userName);
-        userType="staff";
+        setUserType("Staff");
     }
-    public void create(int userID, String userName, String userType) {
+    public void create() {
         // Connect to the database
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306", USERNAME, PASS);
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         // Insert the new user into the users table
-        String sql = "INSERT INTO Users (user_id, user_name, user_type) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO User (userID, userName, userType) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, userID);
-            pstmt.setString(2, userName);
-            pstmt.setString(3, userType);
+            pstmt.setInt(1, getUserID());
+            pstmt.setString(2, getUserName());
+            pstmt.setString(3, getUserType());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(int userID, String userName, String userType) {
+    public void update(String newName) {
         // Connect to the database
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://library320.ctolwwjuo2op.eu-central-1.rds.amazonaws.com:3306", USERNAME, PASS);
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         // Update the user in the users table
-        String sql = "UPDATE Users SET user_name = ?, user_type = ? WHERE user_id = ?";
+        String sql = "UPDATE User SET userName = ? WHERE userID = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, userName);
-            pstmt.setString(2, userType);
-            pstmt.setInt(3, userID);
+            pstmt.setString(1, newName);
+            pstmt.setInt(2, getUserID());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

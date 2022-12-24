@@ -29,8 +29,8 @@ public class User {
     public String getUserType(){
         return userType;
     }
-    public void setUserType(){
-
+    public void setUserType(String s){
+    this.userType=s;
     }
 
 
