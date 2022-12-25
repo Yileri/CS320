@@ -541,12 +541,12 @@ public class Library {
             // Establish a connection to the database
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Create a prepared statement to insert the new book into the Books table
-                String sql = "SELECT * FROM Movie  WHERE year=?,genre=?,directorName=? ";
+                String sql = "SELECT * FROM Movie  WHERE year=? AND genre=? AND directorName=? ";
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, year);
                 stmt.setString(2, genre);
                 stmt.setString(3, directorName);
-                ResultSet resultSet=stmt.executeQuery(sql);
+                ResultSet resultSet=stmt.executeQuery();
                 while(resultSet.next()){
                     int id3= resultSet.getInt("productID");
                     String name3=resultSet.getString("productName");
@@ -582,12 +582,12 @@ public class Library {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Create a prepared statement to insert the new book into the Books table
 
-                String sql = "SELECT * FROM Book  WHERE year=?,genre=?,authornamName=?";
+                String sql = "SELECT * FROM Book  WHERE year=? AND genre=? AND authorName=?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, year);
                 stmt.setString(2, genre);
                 stmt.setString(3, directorName);
-                ResultSet resultSet=stmt.executeQuery(sql);
+                ResultSet resultSet=stmt.executeQuery();
                 while(resultSet.next()){
                     int id2= resultSet.getInt("productID");
                     String name2=resultSet.getString("productName");
