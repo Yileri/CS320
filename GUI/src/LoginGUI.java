@@ -69,24 +69,15 @@ public class LoginGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
-                String password = passwordField.getText();
+                int id = Integer.parseInt(passwordField.getText());
 
-                if (username.equals("admin") && password.equals("123456")) {
+                if (Library.SignIn(username,id)) {
                     isAdmin = true;
                     Library.isSignedIn = true;
                     JOptionPane.showMessageDialog(null, "Login Successful");
                     frame.setVisible(false);
                     LibraryListGUI librarylist = new LibraryListGUI();
                 }
-                else if (username.equals("user") && password.equals("123456")){
-                    isAdmin = false;
-                    Library.isSignedIn = true;
-                    JOptionPane.showMessageDialog(null, "Login Successful");
-                    frame.setVisible(false);
-                    LibraryListGUI librarylist = new LibraryListGUI();
-                }
-                else
-                    JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
             }
         });
 
