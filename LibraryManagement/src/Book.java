@@ -13,7 +13,7 @@ public class Book extends Product{
         super(productID,productName, year,genre,isReserved);
         this.authorName=authorName;
     }
-    public void reserveOrReturn(String Borrower , LocalDate DateBorrowed, LocalDate DateDue) {
+    public void reserveOrReturn(LocalDate DateBorrowed, LocalDate DateDue) {
         // Connect to the database
         Connection conn = null;
         try {
