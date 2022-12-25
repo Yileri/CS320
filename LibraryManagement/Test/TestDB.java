@@ -213,10 +213,6 @@ public class TestDB {
         }
     }
 
-
-
-
-
    @Test
     public void testCreateStaff() throws SQLException {
         // Add a book to the table using the addBook function
@@ -266,5 +262,18 @@ public class TestDB {
     public void testgetAllBooks() throws SQLException {
         ArrayList<Book> liste = SelectionTool.getAllBooks();
         System.out.println(liste); ;
+    }
+    @Test
+    public void testSignIn() {
+        // Establish a connection to the database
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            boolean result = conn.isClosed();
+            assertFalse(result);
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
     }
 }

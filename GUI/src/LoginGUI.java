@@ -6,6 +6,7 @@ public class LoginGUI {
     private static JTextField usernameField;
     private static JPasswordField passwordField;
     static boolean isAdmin = false;
+
     public static void main(String[] args) {
 
         /* //Version1
@@ -72,12 +73,14 @@ public class LoginGUI {
 
                 if (username.equals("admin") && password.equals("123456")) {
                     isAdmin = true;
+                    Library.isSignedIn = true;
                     JOptionPane.showMessageDialog(null, "Login Successful");
                     frame.setVisible(false);
                     LibraryListGUI librarylist = new LibraryListGUI();
                 }
                 else if (username.equals("user") && password.equals("123456")){
                     isAdmin = false;
+                    Library.isSignedIn = true;
                     JOptionPane.showMessageDialog(null, "Login Successful");
                     frame.setVisible(false);
                     LibraryListGUI librarylist = new LibraryListGUI();

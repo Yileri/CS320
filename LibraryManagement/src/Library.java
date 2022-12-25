@@ -9,6 +9,7 @@ public class Library {
     private static final String USERNAME = "admin";
     private static final String PASSWORD = "admin123";
 
+    static boolean isSignedIn = false;
 
 
     public static void addBook(Book book) {
@@ -227,6 +228,7 @@ public class Library {
             ResultSet resultSet=pstmt.executeQuery();
             while(resultSet.next()){
                 if(resultSet.getInt("userID")==id && resultSet.getString("userName").equals(UserName)){
+                    isSignedIn = true;
                     return true;
                 }
             }
