@@ -97,7 +97,13 @@ public class LibraryListGUI extends JFrame{
         reserveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Do you want to reserve this item?");
+                int a = JOptionPane.showConfirmDialog(null, "Do you want to reserve this item?");
+                if (a == JOptionPane.YES_OPTION) {
+                    JTable table = (JTable)e.getSource();
+                    int row = table.getSelectedRow();
+
+                    Reserve reserve = new Reserve();
+                }
             }
         });
 
@@ -179,20 +185,24 @@ public class LibraryListGUI extends JFrame{
         request.add(requestBook);
         request.add(requestMovie);
 
-        JFrame requestedMovies = new JFrame("Requested Movies");
+        JDialog requestedMovies = new JDialog();
+        requestedMovies.setTitle("Requested Movies");
         requestedMovies.setSize(550, 500);
         requestedMovies.setLayout(new FlowLayout());
+        requestedMovies.setModal(true);
         requestedMovies.setLocationRelativeTo(null);
 
-        JFrame requestedBooks = new JFrame("Requested Books");
+        JDialog requestedBooks = new JDialog();
+        requestedBooks.setTitle("Requested Books");
         requestedBooks.setSize(550, 500);
         requestedBooks.setLayout(new FlowLayout());
+        requestedBooks.setModal(true);
         requestedBooks.setLocationRelativeTo(null);
 
-        //JTable requestedBookTable = new JTable(bookDatas, bookColumns);
-        //JScrollPane requestedBookScrollPane = new JScrollPane(requestedBookTable);
-        //bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //requestedBooks.add(requestedBookScrollPane);
+        JTable requestedBookTable = new JTable();
+        JScrollPane requestedBookScrollPane = new JScrollPane(requestedBookTable);
+        bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        requestedBooks.add(requestedBookScrollPane);
 
         //JTable requestedMoviesTable = new JTable(movieDatas, movieColumns);
         //JScrollPane requestedMoviesScrollPane = new JScrollPane(requestedMoviesTable);
