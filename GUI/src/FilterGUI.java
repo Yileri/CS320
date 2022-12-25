@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +12,8 @@ public class FilterGUI extends JDialog {
 
     FilterGUI() {
         this.setTitle("Filter");
-        this.setAlwaysOnTop(true);
-        this.setModal(true);
         this.setSize(250, 300);
+        this.setModal(true);
         this.setLayout(new FlowLayout());
         this.setLocationRelativeTo(null);
 
@@ -129,7 +129,56 @@ public class FilterGUI extends JDialog {
         applyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JDialog filterDialog = new JDialog();
+                filterDialog.setSize(200, 300);
+                filterDialog.setModal(true);
+                filterDialog.setLocationRelativeTo(null);
 
+                filterDialog.setTitle("Filter Results");
+
+                String[] filterColumns = {"Name"};
+                DefaultTableModel filtersModel = new DefaultTableModel(filterColumns, 0) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
+                    }
+                };
+
+                int filterYear;
+                String filterCreator, filterGenre;
+                if (typeBox.getSelectedItem().toString().equals("Book")) {
+                    filterYear = Integer.parseInt(bookYearBox.getSelectedItem().toString());
+                    filterCreator = authorBox.getSelectedItem().toString();
+                    filterGenre = bookGenreBox.getSelectedItem().toString();
+                    ArrayList<Book> filterResults = Library.FilterBook(filterYear, filterCreator, filterGenre);
+
+                    for (int i=0; i<filterResults.size(); i++) {
+                        Object[] resultData = {filterResults.get(i).getProductName()};
+                        filtersModel.addRow(resultData);
+                    }
+
+                    JTable filtersTable = new JTable(filtersModel);
+                    JScrollPane filterScrollPane = new JScrollPane(filtersTable);
+                    filterScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                    filterDialog.add(filterScrollPane);
+                } else {
+                    filterYear = Integer.parseInt(movieYearBox.getSelectedItem().toString());
+                    filterCreator = directorBox.getSelectedItem().toString();
+                    filterGenre = movieGenreBox.getSelectedItem().toString();
+                    ArrayList<Movie> filterResults = Library.FilterMovie(filterYear, filterCreator, filterGenre);
+
+                    for (int i=0; i<filterResults.size(); i++) {
+                        Object[] resultData = {filterResults.get(i).getProductName()};
+                        filtersModel.addRow(resultData);
+                    }
+
+                    JTable filtersTable = new JTable(filtersModel);
+                    JScrollPane filterScrollPane = new JScrollPane(filtersTable);
+                    filterScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                    filterDialog.add(filterScrollPane);
+                }
+
+                filterDialog.setVisible(true);
             }
         });
 
