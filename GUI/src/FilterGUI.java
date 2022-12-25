@@ -126,6 +126,13 @@ public class FilterGUI extends JDialog {
             }
         });
 
+        applyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         this.setVisible(true);
     }
 }

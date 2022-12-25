@@ -504,19 +504,18 @@ public class Library {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Delete the book from the Books table
-            String sql = "SELECT DISTINCT productName FROM Book WHERE=?";
+            String sql = "SELECT productName FROM Book WHERE productName=?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
-            ResultSet resultSet=pstmt.executeQuery(sql);
+            ResultSet resultSet=pstmt.executeQuery();
             while(resultSet.next()) {
                 search.add(resultSet.getString("productName"));
             }
-            String sql2 = "SELECT DISTINCT productName FROM Movie WHERE=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            String sql2 = "SELECT productName FROM Movie WHERE productName=?";
+            PreparedStatement stmt = conn.prepareStatement(sql2);
             stmt.setString(1, name);
-            ResultSet resultSet2=stmt.executeQuery(sql);
-
-            while(resultSet.next()) {
+            ResultSet resultSet2=stmt.executeQuery();
+            while(resultSet2.next()) {
                 search.add(resultSet2.getString("productName"));
             }
 

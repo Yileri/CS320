@@ -460,6 +460,40 @@ public class LibraryListGUI extends JFrame{
         ButtonColumn movieAddColumn = new ButtonColumn(requestedMovieTable, addMovieAction, 5);
         movieAddColumn.setMnemonic(KeyEvent.VK_D);
 
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog resultDialog = new JDialog();
+                resultDialog.setSize(200, 300);
+                resultDialog.setModal(true);
+                resultDialog.setLocationRelativeTo(null);
+
+                resultDialog.setTitle("Search Results");
+
+                String[] resultColumns = {"Name"};
+                DefaultTableModel resultsModel = new DefaultTableModel(resultColumns, 0) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
+                    }
+                };
+
+                ArrayList<String> results = Library.searchByName(searchBarTextField.getText());
+
+                for (int i=0; i<results.size(); i++) {
+                    Object[] resultData = {results.get(i)};
+                    resultsModel.addRow(resultData);
+                }
+
+
+                JTable resultsTable = new JTable(resultsModel);
+                JScrollPane resultScrollPane = new JScrollPane(resultsTable);
+                resultScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                resultDialog.add(resultScrollPane);
+                resultDialog.setVisible(true);
+            }
+        });
+
         showBookList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
