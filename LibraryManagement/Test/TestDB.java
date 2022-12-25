@@ -219,6 +219,7 @@ public class TestDB {
         Staff staff = new Staff(1,"kafanagöretakıl");
         // Add the book to the database
         staff.create();
+
     }
   @Test
     public void testUpdateStaff() throws SQLException {
@@ -269,19 +270,22 @@ public class TestDB {
         ArrayList<Book> liste = SelectionTool.getAllBooks();
         System.out.println(liste);
     }
+
+
     @Test
-    public void testSignIn() {
-        // Establish a connection to the database
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            boolean result = conn.isClosed();
-            assertFalse(result);
-        } catch (Exception e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+    public void testSignInSuccess() {
+        // Test a valid sign in
+        boolean result = Library.SignIn("kafanagöretakıl", 1);//value taken from User Table
+        assertTrue(result);
     }
+
+    @Test
+    public void testSignInFailure() {
+        // Test an invalid sign in
+        boolean result = Library.SignIn("user1", 2);
+        assertFalse(result);
+    }
+
     @Test
     public void testListMovieYear() {
         // Call the listMovieYear() method

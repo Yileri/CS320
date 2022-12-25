@@ -167,54 +167,6 @@ public class Library {
 
     }
 
-
-    public static void findBook(int productID) {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-
-            String sql = "SELECT * FROM Books WHERE productID = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, productID);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                int year = rs.getInt("year");
-                String productName = rs.getString("productName");
-                String genre = rs.getString("genre");
-                String authorName = rs.getString("authorName");
-
-                // Do something with the retrieved book information
-            } else {
-                System.out.println("Book not found");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-    public void findMovie(int productID, Connection conn) {
-        try {
-            String sql = "SELECT * FROM Movies WHERE productID = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, productID);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                int year = rs.getInt("year");
-                String productName = rs.getString("productName");
-                String genre = rs.getString("genre");
-                String directorName = rs.getString("directorName");
-
-                // Do something with the retrieved movie information
-            } else {
-                System.out.println("Movie not found");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
     public static boolean SignIn(String UserName, int id) {
         Connection conn = null;
         try {
@@ -545,22 +497,25 @@ public class Library {
         }
         return request;
     }
-    public static ArrayList<String> searchByName(){
+    public static ArrayList<String> searchByName(String name){
         ArrayList<String> search=new ArrayList<>();
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Delete the book from the Books table
-            String sql = "SELECT DISTINCT productName FROM Book";
-            Statement pstmt = conn.createStatement();
+            String sql = "SELECT DISTINCT productName FROM Book WHERE=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
             ResultSet resultSet=pstmt.executeQuery(sql);
             while(resultSet.next()) {
                 search.add(resultSet.getString("productName"));
             }
-            String sql2 = "SELECT DISTINCT productName FROM Movie";
-            Statement stmt = conn.createStatement();
-            ResultSet resultSet2=pstmt.executeQuery(sql);
+            String sql2 = "SELECT DISTINCT productName FROM Movie WHERE=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            ResultSet resultSet2=stmt.executeQuery(sql);
+
             while(resultSet.next()) {
                 search.add(resultSet2.getString("productName"));
             }
@@ -579,7 +534,7 @@ public class Library {
         }
         return search;
     }
-    public static ArrayList<Movie> Filter(int year,String directorName,String genre,String type){
+    public static ArrayList<Movie> FilterMovie(int year,String directorName,String genre){
        ArrayList<Movie> filter =new ArrayList<>();
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -587,24 +542,6 @@ public class Library {
             // Establish a connection to the database
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Create a prepared statement to insert the new book into the Books table
-            if(type.equals("Book")){
-            String sql = "SELECT * FROM Book  WHERE year=?,genre=?,authornamName=?";
-            stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, year);
-                stmt.setString(2, genre);
-                stmt.setString(3, directorName);
-                ResultSet resultSet=stmt.executeQuery(sql);
-                while(resultSet.next()){
-                    int id2= resultSet.getInt("productID");
-                    String name2=resultSet.getString("productName");
-                    int year2=resultSet.getInt("year");
-                    String genre2=resultSet.getString("genre");
-                    String directorName2 = resultSet.getString("authorName");
-                    Movie movie=new Movie(id2,name2,year2,genre2,directorName2,false);
-                    filter.add(movie);
-                }
-            }
-            if(type.equals("Movie")){
                 String sql = "SELECT * FROM Movie  WHERE year=?,genre=?,directorName=? ";
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, year);
@@ -619,7 +556,48 @@ public class Library {
                     String directorName3 = resultSet.getString("directorName");
                     Movie movie=new Movie(id3,name3,year3,genre3,directorName3,false);
                     filter.add(movie);
-                }
+
+            }
+
+            // Execute the prepared statement
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return filter;
+    }
+    public static ArrayList<Book> FilterBook(int year,String directorName,String genre){
+        ArrayList<Book> filter =new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            // Establish a connection to the database
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            // Create a prepared statement to insert the new book into the Books table
+
+                String sql = "SELECT * FROM Book  WHERE year=?,genre=?,authornamName=?";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, year);
+                stmt.setString(2, genre);
+                stmt.setString(3, directorName);
+                ResultSet resultSet=stmt.executeQuery(sql);
+                while(resultSet.next()){
+                    int id2= resultSet.getInt("productID");
+                    String name2=resultSet.getString("productName");
+                    int year2=resultSet.getInt("year");
+                    String genre2=resultSet.getString("genre");
+                    String directorName2 = resultSet.getString("authorName");
+                  Book book =new Book(id2,name2,year2,genre2,directorName2,false);
+                    filter.add(book);
+
             }
 
             // Execute the prepared statement
