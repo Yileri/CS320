@@ -70,7 +70,7 @@ public class LibraryListGUI extends JFrame{
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 6;
+                return (column == 6 || column == 7);
             }
         };
 
@@ -120,6 +120,52 @@ public class LibraryListGUI extends JFrame{
 
         ButtonColumn bookReserveColumn = new ButtonColumn(bookTable, reserveAction, 6);
         bookReserveColumn.setMnemonic(KeyEvent.VK_D);
+
+        Action removeBookAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int a = JOptionPane.showConfirmDialog(null, "Do you want to remove this item?");
+                if (a == JOptionPane.YES_OPTION) {
+                    JTable table = (JTable)e.getSource();
+                    int row = table.getSelectedRow();
+                    String stringID = table.getModel().getValueAt(row, 0).toString();
+                    int ID = Integer.parseInt(stringID);
+                    String productName = table.getModel().getValueAt(row, 1).toString();
+                    String yearString = table.getModel().getValueAt(row, 3).toString();
+                    int year = Integer.parseInt(yearString);
+                    String genre = table.getModel().getValueAt(row, 2).toString();
+                    String creatorName = table.getModel().getValueAt(row, 4).toString();
+
+                    Book removedBook = new Book(ID, productName, year, genre, creatorName, false);
+                    Library.removeBook(removedBook);
+
+                    ((DefaultTableModel)table.getModel()).removeRow(row);
+                }
+            }
+        };
+
+        Action removeMovieAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int a = JOptionPane.showConfirmDialog(null, "Do you want to remove this item?");
+                if (a == JOptionPane.YES_OPTION) {
+                    JTable table = (JTable)e.getSource();
+                    int row = table.getSelectedRow();
+                    String stringID = table.getModel().getValueAt(row, 0).toString();
+                    int ID = Integer.parseInt(stringID);
+                    String productName = table.getModel().getValueAt(row, 1).toString();
+                    String yearString = table.getModel().getValueAt(row, 3).toString();
+                    int year = Integer.parseInt(yearString);
+                    String genre = table.getModel().getValueAt(row, 2).toString();
+                    String creatorName = table.getModel().getValueAt(row, 4).toString();
+
+                    Movie removedMovie = new Movie(ID, productName, year, genre, creatorName, false);
+                    Library.removeMovie(removedMovie);
+
+                    ((DefaultTableModel)table.getModel()).removeRow(row);
+                }
+            }
+        };
 
 
         // creating movie table
@@ -216,7 +262,92 @@ public class LibraryListGUI extends JFrame{
         requestedBooks.setLayout(new FlowLayout());
         requestedBooks.setModal(true);
         requestedBooks.setLocationRelativeTo(null);
-        
+
+        //removeBook button
+        removeBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame removeBookFrame = new JFrame("Remove Book");
+                removeBookFrame.setSize(370,250);
+
+                String[] removeBookColumns = {"ID", "Name", "Genre", "Year", "Author", "IsReserved", "Remove"};
+                DefaultTableModel removeBookTableModel = new DefaultTableModel(removeBookColumns, 0) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return column == 6;
+                    }
+                };
+
+                ArrayList<Book> rBookDatas = SelectionTool.getAllBooks();
+
+                for (int i=0; i<rBookDatas.size(); i++) {
+                    String id = rBookDatas.get(i).getProductID() + "";
+                    String name = rBookDatas.get(i).getProductName();
+                    String genre = rBookDatas.get(i).getGenre();
+                    String year = rBookDatas.get(i).getYear() + "";
+                    String author = rBookDatas.get(i).getAuthorName();
+                    String reserved = rBookDatas.get(i).getIsReserved() + "";
+
+                    Object[] bookData = {id, name, genre, year, author, reserved};
+                    removeBookTableModel.addRow(bookData);
+                }
+
+                JTable rBookTable = new JTable(removeBookTableModel);
+                JScrollPane rBookScrollPane = new JScrollPane(rBookTable);
+                rBookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+                ButtonColumn bookRemoveColumn = new ButtonColumn(rBookTable, removeBookAction, 6);
+                bookRemoveColumn.setMnemonic(KeyEvent.VK_D);
+
+                removeBookFrame.add(rBookScrollPane);
+                removeBookFrame.setLocationRelativeTo(null);
+                removeBookFrame.setVisible(true);
+            }
+        });
+
+
+        // remove movie
+        removeMovie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame removeMovieFrame = new JFrame("Remove Movie");
+                removeMovieFrame.setSize(370,250);
+
+                String[] removeMovieColumns = {"ID", "Name", "Genre", "Year", "Director", "IsReserved", "Remove"};
+                DefaultTableModel removeMovieTableModel = new DefaultTableModel(removeMovieColumns, 0) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return column == 6;
+                    }
+                };
+
+                ArrayList<Movie> rMovieDatas = SelectionTool.getAllMovies();
+
+                for (int i=0; i<rMovieDatas.size(); i++) {
+                    String id = rMovieDatas.get(i).getProductID() + "";
+                    String name = rMovieDatas.get(i).getProductName();
+                    String genre = rMovieDatas.get(i).getGenre();
+                    String year = rMovieDatas.get(i).getYear() + "";
+                    String director = rMovieDatas.get(i).getDirectorName();
+                    String reserved = rMovieDatas.get(i).getIsReserved() + "";
+
+                    Object[] bookData = {id, name, genre, year, director, reserved};
+                    removeMovieTableModel.addRow(bookData);
+                }
+
+                JTable rMovieTable = new JTable(removeMovieTableModel);
+                JScrollPane rMovieScrollPane = new JScrollPane(rMovieTable);
+                rMovieScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+                ButtonColumn movieRemoveColumn = new ButtonColumn(rMovieTable, removeMovieAction, 6);
+                movieRemoveColumn.setMnemonic(KeyEvent.VK_D);
+
+                removeMovieFrame.add(rMovieScrollPane);
+                removeMovieFrame.setLocationRelativeTo(null);
+                removeMovieFrame.setVisible(true);
+            }
+        });
+
         String[] requestedBookColumns = {"ID", "Name", "Genre", "Year", "Author", "Add"};
 
         DefaultTableModel requestedBookModel = new DefaultTableModel(requestedBookColumns, 0) {
