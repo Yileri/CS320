@@ -91,6 +91,7 @@ public class LibraryListGUI extends JFrame{
 
         JTable bookTable = new JTable(bookTableModel);
 
+        //function for reserving items
         Action reserveAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,37 +120,6 @@ public class LibraryListGUI extends JFrame{
 
         ButtonColumn bookReserveColumn = new ButtonColumn(bookTable, reserveAction, 6);
         bookReserveColumn.setMnemonic(KeyEvent.VK_D);
-
-        //bookTable.getColumn("Reserve").setCellRenderer(new ReserveButtonRenderer());
-        //bookTable.getColumn("Reserve").setCellEditor(new ReserveButtonEditor(new JCheckBox()));
-
-        /*
-        reserveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int a = JOptionPane.showConfirmDialog(null, "Do you want to reserve this item?");
-                if (a == JOptionPane.YES_OPTION) {
-                    JTable table = (JTable)e.getSource();
-                    int row = table.getSelectedRow();
-                    String stringID = table.getModel().getValueAt(row, 0).toString();
-                    int ID = Integer.parseInt(stringID);
-                    String productName = table.getModel().getValueAt(row, 1).toString();
-                    String yearString = table.getModel().getValueAt(row, 2).toString();
-                    int year = Integer.parseInt(yearString);
-                    String genre = table.getModel().getValueAt(row, 3).toString();
-                    String creatorName = table.getModel().getValueAt(row, 4).toString();
-
-                    if (bookTypeButton.isSelected()) {
-                        Book reserveBook = new Book(ID, productName, year, genre, creatorName, true);
-                        reserveBook.reserveOrReturn(java.time.LocalDate.now(), java.time.LocalDate.now().plusDays(1));
-                    } else {
-                        //Movie reserveMovie = new Movie();
-                    }
-                }
-            }
-        });
-
-         */
 
         // creating movie table
         String[] movieColumns = {"ID", "Name", "Genre", "Year", "Director", "Available", "Reserve"};
@@ -216,7 +186,6 @@ public class LibraryListGUI extends JFrame{
         JMenu reserve,request, addRemoveItem, requestedItems;
         JMenuItem requestBook, requestMovie, showBookList, showMovieList;
         JMenuBar mb = new JMenuBar();
-        reserve = new JMenu("Reserve");
         request = new JMenu("Request");
         addRemoveItem = new JMenu("Add/Remove Item");
         requestedItems = new JMenu("Requested Items");
@@ -252,14 +221,56 @@ public class LibraryListGUI extends JFrame{
             }
         };
 
-        //ArrayList<Book> requestedBookDatas = Library.RequestBookList();
-        
+        ArrayList<Book> requestedBookDatas = Library.RequestBookList();
+
+        for (int i=0; i<requestedBookDatas.size(); i++) {
+            String id = requestedBookDatas.get(i).getProductID() + "";
+            String name = requestedBookDatas.get(i).getProductName();
+            String genre = requestedBookDatas.get(i).getGenre();
+            String year = requestedBookDatas.get(i).getYear() + "";
+            String author = requestedBookDatas.get(i).getAuthorName();
+            String reserved = requestedBookDatas.get(i).getIsReserved() + "";
+
+            Object[] bookData = {id, name, genre, year, author, reserved};
+            requestedBookModel.addRow(bookData);
+        }
 
 
-        JTable requestedBookTable = new JTable();
+        JTable requestedBookTable = new JTable(requestedBookModel);
         JScrollPane requestedBookScrollPane = new JScrollPane(requestedBookTable);
-        bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        requestedBookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         requestedBooks.add(requestedBookScrollPane);
+
+
+
+        String[] requestedMovieColumns = {"ID", "Name", "Genre", "Year", "Director"};
+
+        DefaultTableModel requestedMovieModel = new DefaultTableModel(requestedMovieColumns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5;
+            }
+        };
+
+        ArrayList<Movie> requestedMovieDatas = Library.RequestMovieList();
+
+        for (int i=0; i<requestedBookDatas.size(); i++) {
+            String id = requestedMovieDatas.get(i).getProductID() + "";
+            String name = requestedMovieDatas.get(i).getProductName();
+            String genre = requestedMovieDatas.get(i).getGenre();
+            String year = requestedMovieDatas.get(i).getYear() + "";
+            String director = requestedMovieDatas.get(i).getDirectorName();
+            String reserved = requestedMovieDatas.get(i).getIsReserved() + "";
+
+            Object[] movieData = {id, name, genre, year, director, reserved};
+            requestedMovieModel.addRow(movieData);
+        }
+
+
+        JTable requestedMovieTable = new JTable(requestedMovieModel);
+        JScrollPane requestedMovieScrollPane = new JScrollPane(requestedMovieTable);
+        requestedMovieScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        requestedMovies.add(requestedMovieScrollPane);
 
         /*
         String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "Available", "Reserve"};
@@ -322,7 +333,6 @@ public class LibraryListGUI extends JFrame{
             }
         });
 
-        mb.add(reserve);
         mb.add(request);
 
         if(LoginGUI.isAdmin){

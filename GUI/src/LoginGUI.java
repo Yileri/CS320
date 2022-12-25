@@ -60,7 +60,7 @@ public class LoginGUI {
         panel.add(passwordField);
 
         // Sign In Button
-        JButton loginButton = new JButton("Sıgn In");
+        JButton loginButton = new JButton("Sign In");
         loginButton.setBounds(150, 147, 110, 27);
         loginButton.setForeground(Color.BLACK);
         loginButton.setBackground(Color.CYAN);
