@@ -110,14 +110,15 @@ public class LibraryListGUI extends JFrame{
                         Book reserveBook = new Book(ID, productName, year, genre, creatorName, true);
                         reserveBook.reserveOrReturn(java.time.LocalDate.now(), java.time.LocalDate.now().plusDays(1));
                     } else {
-                        //Movie reserveMovie = new Movie();
+                        Movie reserveMovie = new Movie(ID, productName, year, genre, creatorName, true);
+                        reserveMovie.reserveOrReturn(java.time.LocalDate.now(), java.time.LocalDate.now().plusDays(1));
                     }
                 }
             }
         };
 
-        ButtonColumn reserveColumn = new ButtonColumn(bookTable, reserveAction, 6);
-        reserveColumn.setMnemonic(KeyEvent.VK_D);
+        ButtonColumn bookReserveColumn = new ButtonColumn(bookTable, reserveAction, 6);
+        bookReserveColumn.setMnemonic(KeyEvent.VK_D);
 
         //bookTable.getColumn("Reserve").setCellRenderer(new ReserveButtonRenderer());
         //bookTable.getColumn("Reserve").setCellEditor(new ReserveButtonEditor(new JCheckBox()));
@@ -177,14 +178,15 @@ public class LibraryListGUI extends JFrame{
 
         JTable movieTable = new JTable(movieTableModel);
 
-        movieTable.getColumn("Reserve").setCellRenderer(new ReserveButtonRenderer());
-        movieTable.getColumn("Reserve").setCellEditor(new ReserveButtonEditor(new JCheckBox()));
 
         JScrollPane bookScrollPane = new JScrollPane(bookTable);
         bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         JScrollPane movieScrollPane = new JScrollPane(movieTable);
         movieScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        ButtonColumn movieReserveColumn = new ButtonColumn(movieTable, reserveAction, 6);
+        movieReserveColumn.setMnemonic(KeyEvent.VK_D);
 
 
         // book table will be seen upon starting application
