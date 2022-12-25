@@ -103,6 +103,29 @@ public class TestDB {
     }
 
     @Test
+    public void testJdbcConnection() {
+        Connection conn = null;
+        try {
+            // Register the JDBC driver
+//            Class.forName(JDBC_DRIVER);
+
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        } finally {
+            // Close the connection
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                fail(e.getMessage());
+            }
+        }
+    }
+
+    @Test
     public void testAddMovie() {
         // Create a new movie object with test data
         Movie movie = new Movie(222221, "Test Movie", 2020, "Test Genre", "Test Director", false);
@@ -190,30 +213,10 @@ public class TestDB {
         }
     }
 
-    @Test
-    public void testJdbcConnection() {
-        Connection conn = null;
-        try {
-            // Register the JDBC driver
-//            Class.forName(JDBC_DRIVER);
 
-            // Open a connection
-            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        } finally {
-            // Close the connection
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                fail(e.getMessage());
-            }
-        }
-    }
-}
-    /*
+
+
+
    @Test
     public void testCreateStaff() throws SQLException {
         // Add a book to the table using the addBook function
@@ -264,4 +267,4 @@ public class TestDB {
         ArrayList<Book> liste = SelectionTool.getAllBooks();
         System.out.println(liste); ;
     }
-*/
+}
