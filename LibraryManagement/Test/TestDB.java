@@ -256,13 +256,37 @@ public class TestDB {
         }
     }
     @Test
-    public void testRequested() throws SQLException {
+    public void testRequestedBook() throws SQLException {
     Library.RequestBook("American Psycho",1987,"","");
     }
     @Test
-    public void testRequestedList() throws SQLException {
-        List<Book> liste = Library.RequestBookList();
-        System.out.println(liste); ;
+    public void testRequestedMovie() throws SQLException {
+        // Create real Connection object
+        Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+        // Create real Prepared Statement object
+        String sql = "INSERT INTO RequestedMovie(name,year,authorName,genre) VALUES (?,?,?,?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, "Test Movie");
+        stmt.setInt(2, 2020);
+        stmt.setString(3, "Test Author");
+        stmt.setString(4, "Action");
+
+        // Call executeUpdate method
+        int rowsAffected = stmt.executeUpdate();
+
+        // Verify that executeUpdate returned the expected value
+        assertEquals(1, rowsAffected);
+    }
+    @Test
+    public void testRequestedBookList() throws SQLException {
+        List<Book> list = Library.RequestBookList();
+        System.out.println(list); ;
+    }
+    @Test
+    public void testRequestedMovieList() throws SQLException {
+        List<Movie> list = Library.RequestMovieList();
+        System.out.println(list); ;
     }
 
     @Test
