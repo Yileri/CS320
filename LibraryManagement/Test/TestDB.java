@@ -266,10 +266,17 @@ public class TestDB {
     }
 
     @Test
-    public void testgetAllBooks() throws SQLException {
-        ArrayList<Book> liste = SelectionTool.getAllBooks();
-        System.out.println(liste);
+    public void testGetAllBooks() throws SQLException {
+        ArrayList<Book> list = SelectionTool.getAllBooks();
+        System.out.println(list);
     }
+
+    @Test
+    public void testGetAllMovies() throws SQLException {
+        ArrayList<Movie> list = SelectionTool.getAllMovies();
+        System.out.println(list);
+    }
+
 
 
     @Test
@@ -357,5 +364,31 @@ public class TestDB {
             assertTrue(genre.matches("[\\w\\s]+"));
         }
     }
+    @Test
+    public void testSearchByName() {
+        // Test searching for a book
+        ArrayList<String> searchResults = Library.searchByName("The Great Gatsby");
+//        assertEquals(1, searchResults.size());
+        assertEquals("The Great Gatsby", searchResults.get(0));
+
+        // Test searching for a movie
+//        searchResults = Library.searchByName("The Godfather");
+//        assertEquals(1, searchResults.size());
+//        assertEquals("The Godfather", searchResults.get(0));
+
+        // Test searching for a product that doesn't exist
+        searchResults = Library.searchByName("Non-existent Product");
+        assertEquals(0, searchResults.size());
+    }
+
+
+
+
+
+
+
 }
+
+
+
 
