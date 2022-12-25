@@ -253,11 +253,7 @@ public class TestDB {
         List<Book> liste = Library.RequestBookList();
         System.out.println(liste); ;
     }
-    @Test
-    public void testSıgnIn() throws SQLException {
 
-        System.out.println(Library.SignIn("yorgun",1)); ;
-    }
     @Test
     public void testgetAllBooks() throws SQLException {
         ArrayList<Book> liste = SelectionTool.getAllBooks();
