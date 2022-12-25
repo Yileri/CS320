@@ -184,20 +184,24 @@ public class LibraryListGUI extends JFrame{
             }
         });
 
-        JMenu request, addRemoveItem, requestedItems;
-        JMenuItem requestBook, requestMovie, showBookList, showMovieList;
+        JMenu request, removeItem, requestedItems;
+        JMenuItem requestBook, removeBook, removeMovie, requestMovie, showBookList, showMovieList;
         JMenuBar mb = new JMenuBar();
         request = new JMenu("Request");
-        addRemoveItem = new JMenu("Add/Remove Item");
+        removeItem = new JMenu("Remove Items");
         requestedItems = new JMenu("Requested Items");
         requestBook = new JMenuItem("Request Book");
         requestMovie = new JMenuItem("Request Movie");
+        removeBook = new JMenuItem("Remove Book");
+        removeMovie = new JMenuItem("Remove Movie");
         showBookList = new JMenuItem("Show Requested Book List");
         showMovieList = new JMenuItem("Show Requested Movie List");
         requestedItems.add(showBookList);
         requestedItems.add(showMovieList);
         request.add(requestBook);
         request.add(requestMovie);
+        removeItem.add(removeBook);
+        removeItem.add(removeMovie);
 
         JDialog requestedMovies = new JDialog();
         requestedMovies.setTitle("Requested Movies");
@@ -290,6 +294,8 @@ public class LibraryListGUI extends JFrame{
 
                     Book addedBook = new Book(ID, productName, year, genre, creatorName, false);
                     Library.addBook(addedBook);
+
+                    ((DefaultTableModel)table.getModel()).removeRow(row);
                 }
             }
         };
@@ -314,6 +320,8 @@ public class LibraryListGUI extends JFrame{
 
                     Movie addedMovie = new Movie(ID, productName, year, genre, creatorName, false);
                     Library.addMovie(addedMovie);
+
+                    ((DefaultTableModel)table.getModel()).removeRow(row);
                 }
             }
         };
@@ -352,7 +360,7 @@ public class LibraryListGUI extends JFrame{
         mb.add(request);
 
         if(LoginGUI.isAdmin){
-            mb.add(addRemoveItem);
+            mb.add(removeItem);
             mb.add(requestedItems);
         }
 
