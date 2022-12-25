@@ -2,7 +2,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org;
+import org.junit.Test;
 import static org.junit.Assert.*;
 
 
@@ -247,11 +247,11 @@ public class TestDB {
     }
     @Test
     public void testRequested() throws SQLException {
-    Library.Request("American Psycho","Book");
+    Library.RequestBook("American Psycho",1987,"","");
     }
     @Test
     public void testRequestedList() throws SQLException {
-        List<String> liste = Library.RequestList();
+        List<Book> liste = Library.RequestBookList();
         System.out.println(liste); ;
     }
     @Test
