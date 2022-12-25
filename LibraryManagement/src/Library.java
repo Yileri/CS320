@@ -149,7 +149,8 @@ public class Library {
     }
 
 
-    public void findBook(int productID, Connection conn) {
+    public static void findBook(int productID) {
+        Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 

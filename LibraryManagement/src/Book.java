@@ -20,14 +20,13 @@ public class Book extends Product{
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Insert a new book into the Books table
-            String sql = "UPDATE Book SET borrower =? ,dateBorrowed=?,dateDue=?, isReserved=? WHERE productID=?";
+            String sql = "UPDATE Book SET dateBorrowed=?,dateDue=?, isReserved=? WHERE productID=?";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,Borrower);
-            pstmt.setDate(2, Date.valueOf(DateBorrowed));
-            pstmt.setDate(3, Date.valueOf(DateDue));
-            pstmt.setBoolean(4,true);
-            pstmt.setInt(5,getProductID());
+            pstmt.setDate(1, Date.valueOf(DateBorrowed));
+            pstmt.setDate(2, Date.valueOf(DateDue));
+            pstmt.setBoolean(3,true);
+            pstmt.setInt(4,getProductID());
             pstmt.executeUpdate();
             this.setIsReserved(true);
             if(DateDue==null){
