@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RequestMovieGUI extends JDialog{
 
@@ -47,6 +49,18 @@ public class RequestMovieGUI extends JDialog{
         //Submit Button
         JButton submitButton=new JButton("Submit Request");
         submitButton.setBounds(120,160,130,25);
+
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
+                String genre = genreField.getText();
+                int year = Integer.parseInt(yearField.getText());
+                String director = directorField.getText();
+                Library.RequestMovie(name, year, director, genre);
+                JOptionPane.showMessageDialog(null, "Your movie request is successful.");
+            }
+        });
 
         this.add(submitButton);
 

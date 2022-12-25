@@ -53,7 +53,7 @@ public class Library {
         }
     }
 
-    public void addMovie(Movie movie) {
+    public static void addMovie(Movie movie) {
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
@@ -62,7 +62,25 @@ public class Library {
 
             // Create a prepared statement to insert the new book into the Books table
 
-            String sql = "INSERT INTO Movie (productID, productName,year,borrower,dateBorrowed,dateDue,genre,directorName,isReserved) VALUES (?,?,?,?,?,?,?,?,?)";
+            /*
+            tring sql = "INSERT INTO Book (productID, productName,year,borrower,genre,authorName,dateBorrowed,dateDue,isReserved) VALUES (?,?,?,?,?,?,?,?,?)";
+            stmt = conn.prepareStatement(sql);
+
+            // Set the values for the prepared statement
+            stmt.setInt(1,book.getProductID());
+            stmt.setString(2, book.getProductName());
+            stmt.setInt(3, book.getYear());
+            stmt.setString(4, null);
+
+            stmt.setString(5, book.getGenre());
+            stmt.setString(6,book.getAuthorName());
+            stmt.setDate(7, null);
+            stmt.setDate(8, null);
+            stmt.setBoolean(9, book.getIsReserved());
+             */
+
+
+            String sql = "INSERT INTO Movie (productID, productName,year,borrower,genre, directorName, dateBorrowed, dateDue, isReserved) VALUES (?,?,?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
 
             // Set the values for the prepared statement
@@ -394,7 +412,7 @@ public class Library {
         }
         return genres;
     }
-    public static void RequestBook(String name,String year,String authorName,String genre){
+    public static void RequestBook(String name,int year,String authorName,String genre){
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
@@ -404,7 +422,7 @@ public class Library {
             String sql = "INSERT INTO RequestedBook (name,year,authorName,genre) VALUES (?,?,?,?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
-            stmt.setString(2, year);
+            stmt.setInt(2, year);
             stmt.setString(3, authorName);
             stmt.setString(4, genre);
             // Execute the prepared statement
@@ -424,7 +442,7 @@ public class Library {
     }
 
 
-    public static void RequestMovie(String name,String year,String authorName,String genre){
+    public static void RequestMovie(String name,int year,String authorName,String genre){
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
@@ -434,7 +452,7 @@ public class Library {
             String sql = "INSERT INTO RequestedMovie(name,year,authorName,genre) VALUES (?,?,?,?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
-            stmt.setString(2, year);
+            stmt.setInt(2, year);
             stmt.setString(3, authorName);
             stmt.setString(4, genre);
 
@@ -460,7 +478,7 @@ public class Library {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Delete the book from the Books table
-            String sql = "SELECT name FROM RequestedBook";
+            String sql = "SELECT * FROM RequestedBook";
             Statement pstmt = conn.createStatement();
             ResultSet resultSet=pstmt.executeQuery(sql);
             while(resultSet.next()){
@@ -470,7 +488,7 @@ public class Library {
                 String name=resultSet.getString("name");
                 int year=resultSet.getInt("year");
                 String genre=resultSet.getString("genre");
-                String authorName = resultSet.getString("directorName");
+                String authorName = resultSet.getString("authorName");
                 Book book=new Book(random,name,year,genre,authorName,false);
                request.add(book);
             }
@@ -496,7 +514,7 @@ public class Library {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Delete the book from the Books table
-            String sql = "SELECT name FROM RequestedMovie";
+            String sql = "SELECT * FROM RequestedMovie";
             Statement pstmt = conn.createStatement();
             ResultSet resultSet=pstmt.executeQuery(sql);
             while(resultSet.next()){
@@ -506,7 +524,7 @@ public class Library {
                 String name=resultSet.getString("name");
                 int year=resultSet.getInt("year");
                 String genre=resultSet.getString("genre");
-                String directorName = resultSet.getString("directorName");
+                String directorName = resultSet.getString("authorName");
                 Movie movie=new Movie(random,name,year,genre,directorName,false);
                 request.add(movie);
             }
@@ -558,6 +576,64 @@ public class Library {
             }
         }
         return search;
+    }
+    public static ArrayList<Movie> Filter(int year,String directorName,String genre,String type){
+       ArrayList<Movie> filter =new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            // Establish a connection to the database
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            // Create a prepared statement to insert the new book into the Books table
+            if(type.equals("Book")){
+            String sql = "SELECT * FROM Book  WHERE year=?,genre=?,authornamName=?";
+            stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, year);
+                stmt.setString(2, genre);
+                stmt.setString(3, directorName);
+                ResultSet resultSet=stmt.executeQuery(sql);
+                while(resultSet.next()){
+                    int id2= resultSet.getInt("productID");
+                    String name2=resultSet.getString("productName");
+                    int year2=resultSet.getInt("year");
+                    String genre2=resultSet.getString("genre");
+                    String directorName2 = resultSet.getString("authorName");
+                    Movie movie=new Movie(id2,name2,year2,genre2,directorName2,false);
+                    filter.add(movie);
+                }
+            }
+            if(type.equals("Movie")){
+                String sql = "SELECT * FROM Movie  WHERE year=?,genre=?,directorName=? ";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, year);
+                stmt.setString(2, genre);
+                stmt.setString(3, directorName);
+                ResultSet resultSet=stmt.executeQuery(sql);
+                while(resultSet.next()){
+                    int id3= resultSet.getInt("productID");
+                    String name3=resultSet.getString("productName");
+                    int year3=resultSet.getInt("year");
+                    String genre3=resultSet.getString("genre");
+                    String directorName3 = resultSet.getString("directorName");
+                    Movie movie=new Movie(id3,name3,year3,genre3,directorName3,false);
+                    filter.add(movie);
+                }
+            }
+
+            // Execute the prepared statement
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return filter;
     }
 
         }

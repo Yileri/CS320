@@ -27,11 +27,13 @@ public class FilterGUI extends JDialog {
         JComboBox typeBox = new JComboBox(types);
 
         List<String> genresDB = Library.listBookGenres();
-        String[] genres = new String[genresDB.size()];
-        for (int i=0; i<genres.length; i++) {
-            genres[i] = genresDB.get(i);
+        String[] genres = new String[genresDB.size()+1];
+        genres[0] = "Select";
+        for (int i=1; i<genres.length; i++) {
+            genres[i] = genresDB.get(i-1);
         }
         JComboBox genreBox = new JComboBox(genres);
+
 
         String years[] = new String[124];
         years[0] = "Select";

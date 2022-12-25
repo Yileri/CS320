@@ -64,7 +64,7 @@ public class LibraryListGUI extends JFrame{
 
 
         //creating book table
-        String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "Available", "Reserve"};
+        String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "IsReserved", "Reserve"};
 
         DefaultTableModel bookTableModel = new DefaultTableModel(bookColumns, 0) {
 
@@ -121,8 +121,9 @@ public class LibraryListGUI extends JFrame{
         ButtonColumn bookReserveColumn = new ButtonColumn(bookTable, reserveAction, 6);
         bookReserveColumn.setMnemonic(KeyEvent.VK_D);
 
+
         // creating movie table
-        String[] movieColumns = {"ID", "Name", "Genre", "Year", "Director", "Available", "Reserve"};
+        String[] movieColumns = {"ID", "Name", "Genre", "Year", "Director", "IsReserved", "Reserve"};
 
         DefaultTableModel movieTableModel = new DefaultTableModel(movieColumns, 0){
 
@@ -183,7 +184,7 @@ public class LibraryListGUI extends JFrame{
             }
         });
 
-        JMenu reserve,request, addRemoveItem, requestedItems;
+        JMenu request, addRemoveItem, requestedItems;
         JMenuItem requestBook, requestMovie, showBookList, showMovieList;
         JMenuBar mb = new JMenuBar();
         request = new JMenu("Request");
@@ -212,7 +213,7 @@ public class LibraryListGUI extends JFrame{
         requestedBooks.setModal(true);
         requestedBooks.setLocationRelativeTo(null);
         
-        String[] requestedBookColumns = {"ID", "Name", "Genre", "Year", "Author"};
+        String[] requestedBookColumns = {"ID", "Name", "Genre", "Year", "Author", "Add"};
 
         DefaultTableModel requestedBookModel = new DefaultTableModel(requestedBookColumns, 0) {
             @Override
@@ -243,7 +244,7 @@ public class LibraryListGUI extends JFrame{
 
 
 
-        String[] requestedMovieColumns = {"ID", "Name", "Genre", "Year", "Director"};
+        String[] requestedMovieColumns = {"ID", "Name", "Genre", "Year", "Director", "Add"};
 
         DefaultTableModel requestedMovieModel = new DefaultTableModel(requestedMovieColumns, 0) {
             @Override
@@ -254,7 +255,7 @@ public class LibraryListGUI extends JFrame{
 
         ArrayList<Movie> requestedMovieDatas = Library.RequestMovieList();
 
-        for (int i=0; i<requestedBookDatas.size(); i++) {
+        for (int i=0; i<requestedMovieDatas.size(); i++) {
             String id = requestedMovieDatas.get(i).getProductID() + "";
             String name = requestedMovieDatas.get(i).getProductName();
             String genre = requestedMovieDatas.get(i).getGenre();
@@ -272,38 +273,53 @@ public class LibraryListGUI extends JFrame{
         requestedMovieScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         requestedMovies.add(requestedMovieScrollPane);
 
-        /*
-        String[] bookColumns = {"ID", "Name", "Genre", "Year", "Author", "Available", "Reserve"};
-
-        DefaultTableModel bookTableModel = new DefaultTableModel(bookColumns, 0) {
-
+        Action addBookAction = new AbstractAction() {
             @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 6;
+            public void actionPerformed(ActionEvent e) {
+                int a = JOptionPane.showConfirmDialog(null, "Do you want to add this item?");
+                if (a == JOptionPane.YES_OPTION) {
+                    JTable table = (JTable)e.getSource();
+                    int row = table.getSelectedRow();
+                    String stringID = table.getModel().getValueAt(row, 0).toString();
+                    int ID = Integer.parseInt(stringID);
+                    String productName = table.getModel().getValueAt(row, 1).toString();
+                    String yearString = table.getModel().getValueAt(row, 3).toString();
+                    int year = Integer.parseInt(yearString);
+                    String genre = table.getModel().getValueAt(row, 2).toString();
+                    String creatorName = table.getModel().getValueAt(row, 4).toString();
+
+                    Book addedBook = new Book(ID, productName, year, genre, creatorName, false);
+                    Library.addBook(addedBook);
+                }
             }
         };
 
+        ButtonColumn bookAddColumn = new ButtonColumn(requestedBookTable, addBookAction, 5);
+        bookAddColumn.setMnemonic(KeyEvent.VK_D);
 
-        ArrayList<Book> bookDatas = SelectionTool.getAllBooks();
+        Action addMovieAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int a = JOptionPane.showConfirmDialog(null, "Do you want to add this item?");
+                if (a == JOptionPane.YES_OPTION) {
+                    JTable table = (JTable)e.getSource();
+                    int row = table.getSelectedRow();
+                    String stringID = table.getModel().getValueAt(row, 0).toString();
+                    int ID = Integer.parseInt(stringID);
+                    String productName = table.getModel().getValueAt(row, 1).toString();
+                    String yearString = table.getModel().getValueAt(row, 3).toString();
+                    int year = Integer.parseInt(yearString);
+                    String genre = table.getModel().getValueAt(row, 2).toString();
+                    String creatorName = table.getModel().getValueAt(row, 4).toString();
 
-        for (int i=0; i<bookDatas.size(); i++) {
-            String id = bookDatas.get(i).getProductID() + "";
-            String name = bookDatas.get(i).getProductName();
-            String genre = bookDatas.get(i).getGenre();
-            String year = bookDatas.get(i).getYear() + "";
-            String author = bookDatas.get(i).getAuthorName();
-            String reserved = bookDatas.get(i).getIsReserved() + "";
+                    Movie addedMovie = new Movie(ID, productName, year, genre, creatorName, false);
+                    Library.addMovie(addedMovie);
+                }
+            }
+        };
 
-            Object[] bookData = {id, name, genre, year, author, reserved};
-            bookTableModel.addRow(bookData);
-        }
-
-         */
-
-        //JTable requestedMoviesTable = new JTable(movieDatas, movieColumns);
-        //JScrollPane requestedMoviesScrollPane = new JScrollPane(requestedMoviesTable);
-        //bookScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //requestedMovies.add(requestedMoviesScrollPane);
+        ButtonColumn movieAddColumn = new ButtonColumn(requestedMovieTable, addMovieAction, 5);
+        movieAddColumn.setMnemonic(KeyEvent.VK_D);
 
         showBookList.addActionListener(new ActionListener() {
             @Override
@@ -346,38 +362,6 @@ public class LibraryListGUI extends JFrame{
 
         libFrame.add(mb);
         libFrame.setJMenuBar(mb);
-        //libFrame.setLayout(null);
         libFrame.setVisible(true);
-    }
-
-    class ReserveButtonRenderer extends JButton implements TableCellRenderer {
-        public ReserveButtonRenderer() {
-            setOpaque(true);
-        }
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setText((value == null) ? "Reserve" : value.toString());
-            return this;
-        }
-
-    }
-    class ReserveButtonEditor extends DefaultCellEditor {
-
-        private String label;
-
-        public ReserveButtonEditor(JCheckBox checkBox) {
-            super(checkBox);
-        }
-
-        public Component getTableCellEditorComponent(JTable table, Object value,
-                                                     boolean isSelected, int row, int column) {
-            label = (value == null) ? "Reserve" : value.toString();
-            reserveButton.setText(label);
-            return reserveButton;
-        }
-
-        public Object getCellEditorValue() {
-            return new String(label);
-        }
     }
 }

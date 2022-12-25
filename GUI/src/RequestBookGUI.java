@@ -49,10 +49,16 @@ public class RequestBookGUI extends JDialog {
         //Submit Button
         JButton submitButton=new JButton("Submit Request");
         submitButton.setBounds(120,160,130,25);
+
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String name = nameField.getText();
+                String genre = genreField.getText();
+                int year = Integer.parseInt(yearField.getText());
+                String author = authorField.getText();
+                Library.RequestBook(name, year, author, genre);
+                JOptionPane.showMessageDialog(null, "Your book request is successful.");
             }
         });
 
