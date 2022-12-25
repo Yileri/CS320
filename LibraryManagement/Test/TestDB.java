@@ -239,10 +239,20 @@ public class TestDB {
         Library.removeBook(book);
 
     }
+
     @Test
-    public void testList() throws SQLException {
-        List<String> liste = Library.listBookGenres();
-        System.out.println(liste);
+    public void testListBookGenres() {
+        // Call the listBookGenres() method
+        List<String> bookGenres = Library.listBookGenres();
+
+        // Verify that the returned list is not null and not empty
+        assertNotNull(bookGenres);
+        assertTrue(bookGenres.size() > 0);
+
+        // Verify that all elements in the list are strings that represent book genres
+        for (String genre : bookGenres) {
+            assertTrue(genre.matches("[\\w\\s]+"));
+        }
     }
     @Test
     public void testRequested() throws SQLException {
@@ -257,7 +267,7 @@ public class TestDB {
     @Test
     public void testgetAllBooks() throws SQLException {
         ArrayList<Book> liste = SelectionTool.getAllBooks();
-        System.out.println(liste); ;
+        System.out.println(liste);
     }
     @Test
     public void testSignIn() {
@@ -272,4 +282,76 @@ public class TestDB {
             fail("Unexpected exception: " + e.getMessage());
         }
     }
+    @Test
+    public void testListMovieYear() {
+        // Call the listMovieYear() method
+        List<String> movieYears = Library.listMovieYear();
+
+        // Verify that the returned list is not null and not empty
+        assertNotNull(movieYears);
+        assertTrue(movieYears.size() > 0);
+
+        // Verify that all elements in the list are strings that represent years in the correct format
+        for (String year : movieYears) {
+            assertTrue(year.matches("\\d{4}"));
+        }
+    }
+
+        @Test
+        public void testListBookYear() {
+            // Call the listBookYear() method
+            List<String> bookYears = Library.listBookYear();
+
+            // Verify that the returned list is not null and not empty
+            assertNotNull(bookYears);
+            assertTrue(bookYears.size() > 0);
+
+            // Verify that all elements in the list are strings that represent years in the correct format
+            for (String year : bookYears) {
+                assertTrue(year.matches("\\d{4}"));
+            }
+        }
+        @Test
+    public void testListMovieDirector() {
+        // Call the listMovieDirector() method
+        List<String> movieDirectors = Library.listMovieDirector();
+
+        // Verify that the returned list is not null and not empty
+        assertNotNull(movieDirectors);
+        assertTrue(movieDirectors.size() > 0);
+
+        // Verify that all elements in the list are strings that represent movie directors' names
+        for (String director : movieDirectors) {
+            assertTrue(director.matches("[\\w\\s]+"));
+        }
+    }
+    @Test
+    public void testListBookAuthor() {
+        // Call the listBookAuthor() method
+        List<String> bookAuthors = Library.listBookAuthor();
+
+        // Verify that the returned list is not null and not empty
+        assertNotNull(bookAuthors);
+        assertTrue(bookAuthors.size() > 0);
+
+        // Verify that all elements in the list are strings that represent book authors' names
+        for (String author : bookAuthors) {
+            assertTrue(author.matches("[\\w\\s]+"));
+        }
+    }
+    @Test
+    public void testListMovieGenres() {
+        // Call the listMovieGenres() method
+        List<String> movieGenres = Library.listMovieGenres();
+
+        // Verify that the returned list is not null and not empty
+        assertNotNull(movieGenres);
+        assertTrue(movieGenres.size() > 0);
+
+        // Verify that all elements in the list are strings that represent movie genres
+        for (String genre : movieGenres) {
+            assertTrue(genre.matches("[\\w\\s]+"));
+        }
+    }
 }
+
