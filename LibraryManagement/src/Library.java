@@ -140,7 +140,7 @@ public class Library {
 
     }
 
-    public void removeMovie(Movie movie) {
+    public static void removeMovie(Movie movie) {
         // Connect to the database
         Connection conn = null;
         try {
