@@ -2,7 +2,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org;
 import static org.junit.Assert.*;
 
 
@@ -110,7 +110,7 @@ public class TestDB {
         Library.addBook(book);
         String str = "2022-12-24";
         LocalDate date = LocalDate.parse(str);
-        book.reserveOrReturn("ekin",date,date);
+        book.reserveOrReturn(date,date);
         Library.removeBook(book);
 
     }
