@@ -23,9 +23,21 @@ public class Book extends Product{
             String sql = "UPDATE Book SET dateBorrowed=?,dateDue=?, isReserved=? WHERE productID=?";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setDate(1, Date.valueOf(DateBorrowed));
-            pstmt.setDate(2, Date.valueOf(DateDue));
-            pstmt.setBoolean(3,true);
+            if(DateBorrowed==null){
+                pstmt.setDate(1,null);}
+            else{pstmt.setDate(1, Date.valueOf(DateBorrowed));
+            }
+            if(DateDue==null){
+                pstmt.setDate(2,null);}
+            else {
+                pstmt.setDate(2, Date.valueOf(DateDue));
+            }
+            if(DateDue==null){
+                pstmt.setBoolean(3,false);}
+            else {
+                pstmt.setBoolean(3, true);
+            }
+
             pstmt.setInt(4,getProductID());
             pstmt.executeUpdate();
             this.setIsReserved(true);
