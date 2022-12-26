@@ -391,9 +391,9 @@ public class TestDB {
     @Test
     public void testSearchByName() {
         // Test searching for a book
-        ArrayList<String> searchResults = Library.searchByName("The Great Gatsby");
+        ArrayList<String> searchResults = Library.searchByName("deneme");
 //        assertEquals(1, searchResults.size());
-        assertEquals("The Great Gatsby", searchResults.get(0));
+        assertEquals("deneme", searchResults.get(0));
 
         // Test searching for a movie
 //        searchResults = Library.searchByName("The Godfather");
