@@ -292,13 +292,15 @@ public class LibraryListGUI extends JFrame{
             }
         });
 
-        JMenu request, removeItem, requestedItems, changeItem;
-        JMenuItem requestBook, removeBook, removeMovie, requestMovie, showBookList, showMovieList, changeBook, changeMovie;
+        JMenu menu, request, removeItem, requestedItems, changeItem;
+        JMenuItem signOut, requestBook, removeBook, removeMovie, requestMovie, showBookList, showMovieList, changeBook, changeMovie;
         JMenuBar mb = new JMenuBar();
         request = new JMenu("Request");
+        menu = new JMenu("Menu");
         removeItem = new JMenu("Remove Items");
         changeItem = new JMenu("Change Availability");
         requestedItems = new JMenu("Requested Items");
+        signOut = new JMenuItem("Sign Out");
         requestBook = new JMenuItem("Request Book");
         requestMovie = new JMenuItem("Request Movie");
         removeBook = new JMenuItem("Remove Book");
@@ -307,6 +309,7 @@ public class LibraryListGUI extends JFrame{
         showMovieList = new JMenuItem("Show Requested Movie List");
         changeBook = new JMenuItem("Change Availability of Books");
         changeMovie = new JMenuItem("Change Availability of Movies");
+        menu.add(signOut);
         requestedItems.add(showBookList);
         requestedItems.add(showMovieList);
         request.add(requestBook);
@@ -673,6 +676,18 @@ public class LibraryListGUI extends JFrame{
             }
         });
 
+        signOut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int a = JOptionPane.showConfirmDialog(null, "Do you want to sign out?");
+                if (a == JOptionPane.YES_OPTION) {
+                    libFrame.dispose();
+                    LoginGUI loginScreen = new LoginGUI();
+                }
+            }
+        });
+
+        mb.add(menu);
         mb.add(request);
 
         if(LoginGUI.isAdmin){
