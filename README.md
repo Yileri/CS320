@@ -1,5 +1,5 @@
 # CS320
-This is a simple library application group project of me and my teammates for CS 320 Software Engineering course.
+This is a simple library application group project using Java and MySQL for CS 320 Software Engineering course.
 
 Credits:
 Yiğit İleri,
